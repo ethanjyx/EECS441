@@ -349,8 +349,8 @@
 #warning Change to your display name
 #warning Change to the appropriate class gmail
 #warning Change to the appropriate accessToken
-        CollabrifyClient *client = [[CollabrifyClient alloc] initWithGmail:@"yshuo@umich.edu"
-                                                               displayName:@"Shuo"
+        CollabrifyClient *client = [[CollabrifyClient alloc] initWithGmail:ACCOUNT_GMAIL
+                                                               displayName:DISPLAY_NAME
                                                               accountGmail:@"441winter2014@umich.edu"
                                                                accessToken:@"338692774BBE"
                                                                      error:&error];
