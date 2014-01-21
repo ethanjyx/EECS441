@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750A1843188ECB4600B39C5F /* Collabrify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1842188ECB4600B39C5F /* Collabrify.framework */; };
+		750A1846188ECCC400B39C5F /* Collabrify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1844188ECB6D00B39C5F /* Collabrify.framework */; };
+		750A184A188ECCF100B39C5F /* config.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1849188ECCF100B39C5F /* config.h */; };
+		8B2F45ED185826A9007407D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */; };
+		8B3D4C9A183F252E00662CC2 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B3D4C99183F252E00662CC2 /* libc++.dylib */; };
+		8B3D4CB3183F366B00662CC2 /* Collabrify.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */; };
+		8B3D4CC61844791F00662CC2 /* CITListSessionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3D4CC51844791F00662CC2 /* CITListSessionsTableViewController.m */; };
 		8B4DFBD6183204E300DF989A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4DFBD5183204E300DF989A /* Foundation.framework */; };
 		8B4DFBD8183204E300DF989A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4DFBD7183204E300DF989A /* CoreGraphics.framework */; };
 		8B4DFBDA183204E300DF989A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4DFBD9183204E300DF989A /* UIKit.framework */; };
@@ -21,6 +28,7 @@
 		8B4DFBF7183204E400DF989A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4DFBD9183204E300DF989A /* UIKit.framework */; };
 		8B4DFBFF183204E400DF989A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8B4DFBFD183204E400DF989A /* InfoPlist.strings */; };
 		8B4DFC01183204E400DF989A /* CollabrifyTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4DFC00183204E400DF989A /* CollabrifyTestTests.m */; };
+		8B9733EC1870A598008E49C3 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9733EB1870A598008E49C3 /* libprotobuf.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +42,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		750A1842188ECB4600B39C5F /* Collabrify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Collabrify.framework; sourceTree = "<group>"; };
+		750A1844188ECB6D00B39C5F /* Collabrify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collabrify.framework; path = "../Collabrify iOS/Collabrify.framework"; sourceTree = "<group>"; };
+		750A1847188ECCCF00B39C5F /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../Collabrify iOS/libprotobuf.a"; sourceTree = "<group>"; };
+		750A1849188ECCF100B39C5F /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config.h; path = "../Collabrify iOS/config.h"; sourceTree = "<group>"; };
+		8B20194D187018C1001CBE24 /* Collabrify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collabrify.framework; path = "../../collabrify-client-ios/build/Release-iphonesimulator/Collabrify.framework"; sourceTree = "<group>"; };
+		8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8B3D4C99183F252E00662CC2 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Collabrify.bundle; sourceTree = "<group>"; };
+		8B3D4CC41844791F00662CC2 /* CITListSessionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CITListSessionsTableViewController.h; sourceTree = "<group>"; };
+		8B3D4CC51844791F00662CC2 /* CITListSessionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CITListSessionsTableViewController.m; sourceTree = "<group>"; };
 		8B4DFBD2183204E300DF989A /* CollabrifyTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollabrifyTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B4DFBD5183204E300DF989A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8B4DFBD7183204E300DF989A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +71,8 @@
 		8B4DFBFC183204E400DF989A /* CollabrifyTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CollabrifyTestTests-Info.plist"; sourceTree = "<group>"; };
 		8B4DFBFE183204E400DF989A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8B4DFC00183204E400DF989A /* CollabrifyTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollabrifyTestTests.m; sourceTree = "<group>"; };
+		8B4DFC851832055F00DF989A /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		8B9733EB1870A598008E49C3 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +80,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B2F45ED185826A9007407D1 /* SystemConfiguration.framework in Frameworks */,
+				750A1843188ECB4600B39C5F /* Collabrify.framework in Frameworks */,
+				8B3D4C9A183F252E00662CC2 /* libc++.dylib in Frameworks */,
+				750A184A188ECCF100B39C5F /* config.h in Frameworks */,
+				750A1846188ECCC400B39C5F /* Collabrify.framework in Frameworks */,
+				8B9733EC1870A598008E49C3 /* libprotobuf.a in Frameworks */,
 				8B4DFBD8183204E300DF989A /* CoreGraphics.framework in Frameworks */,
 				8B4DFBDA183204E300DF989A /* UIKit.framework in Frameworks */,
 				8B4DFBD6183204E300DF989A /* Foundation.framework in Frameworks */,
@@ -79,9 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B3D4CA1183F29C700662CC2 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
 		8B4DFBC9183204E300DF989A = {
 			isa = PBXGroup;
 			children = (
+				750A1842188ECB4600B39C5F /* Collabrify.framework */,
 				8B4DFBDB183204E300DF989A /* CollabrifyTest */,
 				8B4DFBFA183204E400DF989A /* CollabrifyTestTests */,
 				8B4DFBD4183204E300DF989A /* Frameworks */,
@@ -101,6 +135,13 @@
 		8B4DFBD4183204E300DF989A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				750A1849188ECCF100B39C5F /* config.h */,
+				750A1847188ECCCF00B39C5F /* libprotobuf.a */,
+				750A1844188ECB6D00B39C5F /* Collabrify.framework */,
+				8B20194D187018C1001CBE24 /* Collabrify.framework */,
+				8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */,
+				8B3D4C99183F252E00662CC2 /* libc++.dylib */,
+				8B9733EB1870A598008E49C3 /* libprotobuf.a */,
 				8B4DFBD5183204E300DF989A /* Foundation.framework */,
 				8B4DFBD7183204E300DF989A /* CoreGraphics.framework */,
 				8B4DFBD9183204E300DF989A /* UIKit.framework */,
@@ -112,11 +153,15 @@
 		8B4DFBDB183204E300DF989A /* CollabrifyTest */ = {
 			isa = PBXGroup;
 			children = (
+				8B3D4CA1183F29C700662CC2 /* iPad */,
 				8B4DFBE4183204E400DF989A /* CITAppDelegate.h */,
 				8B4DFBE5183204E400DF989A /* CITAppDelegate.m */,
 				8B4DFBE7183204E400DF989A /* Main.storyboard */,
 				8B4DFBEA183204E400DF989A /* CITViewController.h */,
 				8B4DFBEB183204E400DF989A /* CITViewController.m */,
+				8B3D4CC41844791F00662CC2 /* CITListSessionsTableViewController.h */,
+				8B3D4CC51844791F00662CC2 /* CITListSessionsTableViewController.m */,
+				8B4DFC851832055F00DF989A /* config.h */,
 				8B4DFBED183204E400DF989A /* Images.xcassets */,
 				8B4DFBDC183204E400DF989A /* Supporting Files */,
 			);
@@ -126,6 +171,7 @@
 		8B4DFBDC183204E400DF989A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */,
 				8B4DFBDD183204E400DF989A /* CollabrifyTest-Info.plist */,
 				8B4DFBDE183204E400DF989A /* InfoPlist.strings */,
 				8B4DFBE1183204E400DF989A /* main.m */,
@@ -200,6 +246,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Collabrify.it;
 				TargetAttributes = {
+					8B4DFBD1183204E300DF989A = {
+						DevelopmentTeam = 9GLG7HDQ8N;
+					};
 					8B4DFBF2183204E400DF989A = {
 						TestTargetID = 8B4DFBD1183204E300DF989A;
 					};
@@ -230,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B4DFBEE183204E400DF989A /* Images.xcassets in Resources */,
+				8B3D4CB3183F366B00662CC2 /* Collabrify.bundle in Resources */,
 				8B4DFBE0183204E400DF989A /* InfoPlist.strings in Resources */,
 				8B4DFBE9183204E400DF989A /* Main.storyboard in Resources */,
 			);
@@ -251,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B4DFBE2183204E400DF989A /* main.m in Sources */,
+				8B3D4CC61844791F00662CC2 /* CITListSessionsTableViewController.m in Sources */,
 				8B4DFBEC183204E400DF989A /* CITViewController.m in Sources */,
 				8B4DFBE6183204E400DF989A /* CITAppDelegate.m in Sources */,
 			);
@@ -337,7 +388,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -369,8 +422,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -379,10 +434,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/bknope/Developer/Work/collabrify-client-ios/Collabrify/build/Debug-iphoneos",
+					/Users/yangshuo/Documents/2014Winter/EECS441/p1/CollabrifyTest,
+					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CollabrifyTest/CollabrifyTest-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/CollabrifyTest/Google Protocol Buffers\"",
+				);
 				INFOPLIST_FILE = "CollabrifyTest/CollabrifyTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/bknope/Developer/Work/CollabrifyTest,
+					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -392,10 +468,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/bknope/Developer/Work/collabrify-client-ios/Collabrify/build/Debug-iphoneos",
+					/Users/yangshuo/Documents/2014Winter/EECS441/p1/CollabrifyTest,
+					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CollabrifyTest/CollabrifyTest-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/CollabrifyTest/Google Protocol Buffers\"",
+				);
 				INFOPLIST_FILE = "CollabrifyTest/CollabrifyTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/bknope/Developer/Work/CollabrifyTest,
+					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -461,6 +558,7 @@
 				8B4DFC06183204E400DF989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8B4DFC07183204E400DF989A /* Build configuration list for PBXNativeTarget "CollabrifyTestTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +567,7 @@
 				8B4DFC09183204E400DF989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
