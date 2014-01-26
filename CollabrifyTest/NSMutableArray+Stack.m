@@ -1,35 +1,50 @@
 #import "NSMutableArray+Stack.h"
 
-@implementation NSMutableArray (Stack)
-
-- (void) push: (id)item {
-	[self addObject:item];
+@implementation Stack{
+    NSMutableArray *stack;
 }
 
-- (id) pop {
-	id item = nil;
-	if ([self count] != 0) {
-		item = [[[self lastObject] retain] autorelease];
-		[self removeLastObject];
-	}
-	return item;
+-(id)init{
+    self = [super init];
+    if(self!=nil){
+        stack = [[NSMutableArray alloc] init];
+    }
+    return self;
 }
 
-- (id) peek {
-	id item = nil;
-	if ([self count] != 0) {
-		item = [[[self lastObject] retain] autorelease];
-	}
-	return item;
+-(void)push:(id)obj{
+    [stack addObject:obj];
 }
 
-- (void) replaceTop: (id)item {
-	if ([self count] == 0) {
-		[self addObject:item];
-	} else {
-		[self removeLastObject];
-		[self addObject:item];
-	}
+-(id)pop{
+    id lastObj = [stack lastObject];
+    [stack removeLastObject];
+    return lastObj;
 }
+
+-(NSUInteger)size{
+    return stack.count;
+}
+
+-(id)peek{
+    return [[stack lastObject] copy];
+}
+
+-(BOOL)isEmpty{
+    return stack.count == 0;
+}
+
+-(NSString *)description{
+    NSMutableString *result = [[NSMutableString alloc] initWithString:@"["];
+    for (id s in stack) {
+        [result appendFormat:@"%@, ",[s description]];
+    }
+    if (stack.count>0) {
+        result = [[result stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]] mutableCopy];
+    }
+    [result appendString:@"]"];
+    return result;
+}
+
 
 @end

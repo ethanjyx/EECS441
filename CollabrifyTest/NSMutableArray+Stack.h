@@ -1,10 +1,11 @@
 #import <Foundation/Foundation.h>
 
-@interface NSMutableArray (Stack)
+@interface Stack : NSObject
 
-- (void) push: (id)item;
-- (id) pop;
-- (id) peek;
-- (void) replaceTop: (id)item;
+-(void)push:(id)obj;
+-(id)pop;
+-(NSUInteger)size;
+-(id)peek;
+-(BOOL)isEmpty;
 
 @end

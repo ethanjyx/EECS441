@@ -42,6 +42,9 @@
     [super touchesBegan:touches withEvent:event];
 }
 
+- (void)textViewDidChange:(UITextView *) textEditor {
+    
+}
 
 - (void)updatePauseButton
 {
