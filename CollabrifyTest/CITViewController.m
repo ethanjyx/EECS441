@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createSessionButton;
 @property (weak, nonatomic) IBOutlet UIButton *leaveSessionButton;
+@property (weak, nonatomic) IBOutlet UITextView *textEditor;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *joinSessionButton;
 
 @property (strong, nonatomic) CollabrifyClient *client;
 @property (strong, nonatomic) NSArray *tags; //of NSString
@@ -29,6 +31,17 @@
 @end
 
 @implementation CITViewController
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([[self textEditor] isFirstResponder] && [touch view] != [self textEditor]) {
+        [[self textEditor] resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
+}
+
 
 - (void)updatePauseButton
 {
@@ -292,6 +305,7 @@
 {
     [[self connectionLabel] setText:@"Connected"];
     [[self createSessionButton] setEnabled:NO];
+    [[self joinSessionButton] setEnabled:NO];
     [[self leaveSessionButton] setEnabled:YES];
     
     [[self sessionNameLabel] setText:[[self client] currentSessionName]];
@@ -308,6 +322,7 @@
     [[self connectionLabel] setText:@"Not Connected"];
     [[self createSessionButton] setEnabled:YES];
     [[self leaveSessionButton] setEnabled:NO];
+    [[self joinSessionButton] setEnabled:YES];
     
     [[self sessionNameLabel] setText:@""];
 }
@@ -380,6 +395,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self textEditor].layer.borderWidth = 5.0f;
+    [self textEditor].layer.borderColor = [[UIColor grayColor] CGColor];
+    [[self leaveSessionButton] setEnabled:YES];
 }
 
 - (void)dealloc

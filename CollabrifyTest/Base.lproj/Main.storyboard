@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqE-4o-fKJ">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqE-4o-fKJ">
                                 <rect key="frame" x="20" y="518" width="104" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Create Session">
@@ -42,7 +42,7 @@
                                     <action selector="createSessionTriggered:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="wNA-UK-LdE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etK-dk-qFf">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etK-dk-qFf">
                                 <rect key="frame" x="200" y="518" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Leave Session">
@@ -52,19 +52,13 @@
                                     <action selector="leaveSessionTriggered:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="z9M-tp-R6Q"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyD-PA-yRF">
-                                <rect key="frame" x="20" y="156" width="280" height="20"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyD-PA-yRF">
+                                <rect key="frame" x="20" y="118" width="280" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tEL-cT-eHx">
-                                <rect key="frame" x="20" y="118" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AR-mZ-kEw">
                                 <rect key="frame" x="20" y="89" width="135" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -75,98 +69,61 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaY-m9-9LF">
-                                <rect key="frame" x="163" y="89" width="137" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Session Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaY-m9-9LF">
+                                <rect key="frame" x="156" y="89" width="137" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVW-ca-Tbo">
-                                <rect key="frame" x="20" y="442" width="280" height="30"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9jb-0T-WoZ">
+                                <rect key="frame" x="0.0" y="184" width="320" height="326"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Pause Events">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zns-rD-SiP">
+                                <rect key="frame" x="49" y="146" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Undo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="pauseButtonTriggered:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Cri-vr-U3w"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltK-QL-djy">
-                                <rect key="frame" x="20" y="480" width="280" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfW-1H-zvM">
+                                <rect key="frame" x="222" y="146" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Create Session With Base File">
+                                <state key="normal" title="Redo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="createSessionWithBaseFileTriggered:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="k4j-tx-Pkx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBc-dj-oSx">
-                                <rect key="frame" x="20" y="404" width="111" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="List Participants">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="listParticipantsTriggered:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="lJZ-B3-mhq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUd-RX-Mu4">
-                                <rect key="frame" x="223" y="404" width="77" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Batch Cast">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="batchCastTriggered:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DUK-qd-9k5"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tEL-cT-eHx" firstAttribute="trailing" secondItem="nyD-PA-yRF" secondAttribute="trailing" id="01h-VB-7Lv"/>
                             <constraint firstItem="5AR-mZ-kEw" firstAttribute="top" secondItem="uaY-m9-9LF" secondAttribute="top" id="0HW-ci-YSm"/>
                             <constraint firstItem="DqE-4o-fKJ" firstAttribute="baseline" secondItem="etK-dk-qFf" secondAttribute="baseline" id="2Dv-3j-O5p"/>
-                            <constraint firstItem="nyD-PA-yRF" firstAttribute="trailing" secondItem="IUd-RX-Mu4" secondAttribute="trailing" id="7K2-aG-oXM"/>
-                            <constraint firstItem="tEL-cT-eHx" firstAttribute="leading" secondItem="nyD-PA-yRF" secondAttribute="leading" id="CLF-1I-COv"/>
                             <constraint firstItem="5AR-mZ-kEw" firstAttribute="top" secondItem="TMM-Nc-bjA" secondAttribute="bottom" constant="25" id="EcH-lT-zJt"/>
-                            <constraint firstItem="5AR-mZ-kEw" firstAttribute="leading" secondItem="tEL-cT-eHx" secondAttribute="leading" id="LBU-oo-R8r"/>
-                            <constraint firstItem="DqE-4o-fKJ" firstAttribute="top" secondItem="ltK-QL-djy" secondAttribute="bottom" constant="8" symbolic="YES" id="Mum-sA-onV"/>
                             <constraint firstAttribute="trailing" secondItem="uaY-m9-9LF" secondAttribute="trailing" constant="20" symbolic="YES" id="StS-Se-c08"/>
-                            <constraint firstItem="nyD-PA-yRF" firstAttribute="top" secondItem="tEL-cT-eHx" secondAttribute="bottom" constant="8" symbolic="YES" id="V4J-Dq-j7Q"/>
-                            <constraint firstItem="tEL-cT-eHx" firstAttribute="trailing" secondItem="uaY-m9-9LF" secondAttribute="trailing" id="XjY-oK-bJD"/>
-                            <constraint firstItem="ltK-QL-djy" firstAttribute="top" secondItem="KVW-ca-Tbo" secondAttribute="bottom" constant="8" symbolic="YES" id="Y5s-b4-lqd"/>
                             <constraint firstItem="5AR-mZ-kEw" firstAttribute="baseline" secondItem="uaY-m9-9LF" secondAttribute="baseline" id="eCD-lw-roV"/>
-                            <constraint firstItem="etK-dk-qFf" firstAttribute="trailing" secondItem="ltK-QL-djy" secondAttribute="trailing" id="fhb-0w-Unc"/>
-                            <constraint firstItem="IUd-RX-Mu4" firstAttribute="trailing" secondItem="KVW-ca-Tbo" secondAttribute="trailing" id="gIC-8p-oyK"/>
-                            <constraint firstItem="nyD-PA-yRF" firstAttribute="leading" secondItem="GBc-dj-oSx" secondAttribute="leading" id="l0d-HW-Gpw"/>
-                            <constraint firstItem="KVW-ca-Tbo" firstAttribute="trailing" secondItem="ltK-QL-djy" secondAttribute="trailing" id="oG6-qj-zbP"/>
-                            <constraint firstItem="GBc-dj-oSx" firstAttribute="leading" secondItem="KVW-ca-Tbo" secondAttribute="leading" id="qn5-Dl-5JG"/>
                             <constraint firstAttribute="bottom" secondItem="DqE-4o-fKJ" secondAttribute="bottom" constant="20" symbolic="YES" id="tMl-j5-xLI"/>
-                            <constraint firstItem="GBc-dj-oSx" firstAttribute="baseline" secondItem="IUd-RX-Mu4" secondAttribute="baseline" id="tjM-vU-jHk"/>
-                            <constraint firstItem="DqE-4o-fKJ" firstAttribute="leading" secondItem="ltK-QL-djy" secondAttribute="leading" id="wDq-Gw-ECs"/>
-                            <constraint firstItem="tEL-cT-eHx" firstAttribute="top" secondItem="5AR-mZ-kEw" secondAttribute="bottom" constant="8" symbolic="YES" id="x5o-iX-TBp"/>
-                            <constraint firstItem="KVW-ca-Tbo" firstAttribute="top" secondItem="GBc-dj-oSx" secondAttribute="bottom" constant="8" symbolic="YES" id="xXd-KH-Z1E"/>
                             <constraint firstItem="uaY-m9-9LF" firstAttribute="leading" secondItem="5AR-mZ-kEw" secondAttribute="trailing" constant="8" symbolic="YES" id="yCk-en-3h3"/>
                             <constraint firstItem="5AR-mZ-kEw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="yxO-oq-dhg"/>
-                            <constraint firstItem="ltK-QL-djy" firstAttribute="leading" secondItem="KVW-ca-Tbo" secondAttribute="leading" id="zYW-wE-L44"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E4o-Nh-XQv">
-                        <barButtonItem key="rightBarButtonItem" title="List Sessions" id="IQt-n1-dzd">
+                        <barButtonItem key="rightBarButtonItem" title="Join Sessions" id="IQt-n1-dzd">
                             <connections>
                                 <segue destination="nIP-FM-QCj" kind="push" identifier="List Sessions Segue" id="ltl-R8-YKG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="broadcastTextField" destination="tEL-cT-eHx" id="4H5-W1-tMY"/>
                         <outlet property="connectionLabel" destination="5AR-mZ-kEw" id="XqE-w4-7RB"/>
                         <outlet property="createSessionButton" destination="DqE-4o-fKJ" id="5U7-Ug-tdP"/>
+                        <outlet property="joinSessionButton" destination="IQt-n1-dzd" id="gm1-UJ-2w4"/>
                         <outlet property="leaveSessionButton" destination="etK-dk-qFf" id="k3I-p4-Jbl"/>
-                        <outlet property="pauseButton" destination="KVW-ca-Tbo" id="VQh-CO-vQX"/>
                         <outlet property="sessionNameLabel" destination="uaY-m9-9LF" id="GHA-Ju-esi"/>
                         <outlet property="statusLabel" destination="nyD-PA-yRF" id="4Y3-gq-xnf"/>
+                        <outlet property="textEditor" destination="9jb-0T-WoZ" id="zOC-Ei-SSN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
