@@ -1,4 +1,4 @@
-#import "NSMutableArray+Stack.h"
+#import "OperationStack.h"
 
 @implementation Stack{
     NSMutableArray *stack;
