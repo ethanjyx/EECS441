@@ -11,6 +11,6 @@
 @interface CITViewController : UIViewController
 
 #define ACCOUNT_GMAIL @"tywei@umich.edu"
-#define DISPLAY_NAME @"Tingyi"
+#define DISPLAY_NAME @"Yixing"
 
 @end
