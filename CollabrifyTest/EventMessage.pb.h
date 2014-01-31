@@ -23,6 +23,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
@@ -35,6 +36,25 @@ void protobuf_ShutdownFile_EventMessage_2eproto();
 
 class EventMessage;
 
+enum EventMessage_OperationType {
+  EventMessage_OperationType_APPEND = 1,
+  EventMessage_OperationType_DELETE = 0
+};
+bool EventMessage_OperationType_IsValid(int value);
+const EventMessage_OperationType EventMessage_OperationType_OperationType_MIN = EventMessage_OperationType_DELETE;
+const EventMessage_OperationType EventMessage_OperationType_OperationType_MAX = EventMessage_OperationType_APPEND;
+const int EventMessage_OperationType_OperationType_ARRAYSIZE = EventMessage_OperationType_OperationType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* EventMessage_OperationType_descriptor();
+inline const ::std::string& EventMessage_OperationType_Name(EventMessage_OperationType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    EventMessage_OperationType_descriptor(), value);
+}
+inline bool EventMessage_OperationType_Parse(
+    const ::std::string& name, EventMessage_OperationType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<EventMessage_OperationType>(
+    EventMessage_OperationType_descriptor(), name, value);
+}
 // ===================================================================
 
 class EventMessage : public ::google::protobuf::Message {
@@ -89,46 +109,105 @@ class EventMessage : public ::google::protobuf::Message {
 
   // nested types ----------------------------------------------------
 
+  typedef EventMessage_OperationType OperationType;
+  static const OperationType APPEND = EventMessage_OperationType_APPEND;
+  static const OperationType DELETE = EventMessage_OperationType_DELETE;
+  static inline bool OperationType_IsValid(int value) {
+    return EventMessage_OperationType_IsValid(value);
+  }
+  static const OperationType OperationType_MIN =
+    EventMessage_OperationType_OperationType_MIN;
+  static const OperationType OperationType_MAX =
+    EventMessage_OperationType_OperationType_MAX;
+  static const int OperationType_ARRAYSIZE =
+    EventMessage_OperationType_OperationType_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  OperationType_descriptor() {
+    return EventMessage_OperationType_descriptor();
+  }
+  static inline const ::std::string& OperationType_Name(OperationType value) {
+    return EventMessage_OperationType_Name(value);
+  }
+  static inline bool OperationType_Parse(const ::std::string& name,
+      OperationType* value) {
+    return EventMessage_OperationType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
-  // required string s = 1;
-  inline bool has_s() const;
-  inline void clear_s();
-  static const int kSFieldNumber = 1;
-  inline const ::std::string& s() const;
-  inline void set_s(const ::std::string& value);
-  inline void set_s(const char* value);
-  inline void set_s(const char* value, size_t size);
-  inline ::std::string* mutable_s();
-  inline ::std::string* release_s();
-  inline void set_allocated_s(::std::string* s);
+  // required int64 participant_id = 1;
+  inline bool has_participant_id() const;
+  inline void clear_participant_id();
+  static const int kParticipantIdFieldNumber = 1;
+  inline ::google::protobuf::int64 participant_id() const;
+  inline void set_participant_id(::google::protobuf::int64 value);
 
-  // required string participantID = 2;
-  inline bool has_participantid() const;
-  inline void clear_participantid();
-  static const int kParticipantIDFieldNumber = 2;
-  inline const ::std::string& participantid() const;
-  inline void set_participantid(const ::std::string& value);
-  inline void set_participantid(const char* value);
-  inline void set_participantid(const char* value, size_t size);
-  inline ::std::string* mutable_participantid();
-  inline ::std::string* release_participantid();
-  inline void set_allocated_participantid(::std::string* participantid);
+  // required int64 local_id = 2;
+  inline bool has_local_id() const;
+  inline void clear_local_id();
+  static const int kLocalIdFieldNumber = 2;
+  inline ::google::protobuf::int64 local_id() const;
+  inline void set_local_id(::google::protobuf::int64 value);
+
+  // required int64 global_id = 3;
+  inline bool has_global_id() const;
+  inline void clear_global_id();
+  static const int kGlobalIdFieldNumber = 3;
+  inline ::google::protobuf::int64 global_id() const;
+  inline void set_global_id(::google::protobuf::int64 value);
+
+  // required string str = 4;
+  inline bool has_str() const;
+  inline void clear_str();
+  static const int kStrFieldNumber = 4;
+  inline const ::std::string& str() const;
+  inline void set_str(const ::std::string& value);
+  inline void set_str(const char* value);
+  inline void set_str(const char* value, size_t size);
+  inline ::std::string* mutable_str();
+  inline ::std::string* release_str();
+  inline void set_allocated_str(::std::string* str);
+
+  // required int64 cursor_location = 5;
+  inline bool has_cursor_location() const;
+  inline void clear_cursor_location();
+  static const int kCursorLocationFieldNumber = 5;
+  inline ::google::protobuf::int64 cursor_location() const;
+  inline void set_cursor_location(::google::protobuf::int64 value);
+
+  // required .WeWrite.EventMessage.OperationType operation_type = 6;
+  inline bool has_operation_type() const;
+  inline void clear_operation_type();
+  static const int kOperationTypeFieldNumber = 6;
+  inline ::WeWrite::EventMessage_OperationType operation_type() const;
+  inline void set_operation_type(::WeWrite::EventMessage_OperationType value);
 
   // @@protoc_insertion_point(class_scope:WeWrite.EventMessage)
  private:
-  inline void set_has_s();
-  inline void clear_has_s();
-  inline void set_has_participantid();
-  inline void clear_has_participantid();
+  inline void set_has_participant_id();
+  inline void clear_has_participant_id();
+  inline void set_has_local_id();
+  inline void clear_has_local_id();
+  inline void set_has_global_id();
+  inline void clear_has_global_id();
+  inline void set_has_str();
+  inline void clear_has_str();
+  inline void set_has_cursor_location();
+  inline void clear_has_cursor_location();
+  inline void set_has_operation_type();
+  inline void clear_has_operation_type();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::std::string* s_;
-  ::std::string* participantid_;
+  ::google::protobuf::int64 participant_id_;
+  ::google::protobuf::int64 local_id_;
+  ::google::protobuf::int64 global_id_;
+  ::std::string* str_;
+  ::google::protobuf::int64 cursor_location_;
+  int operation_type_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   friend void  protobuf_AddDesc_EventMessage_2eproto();
   friend void protobuf_AssignDesc_EventMessage_2eproto();
@@ -144,144 +223,185 @@ class EventMessage : public ::google::protobuf::Message {
 
 // EventMessage
 
-// required string s = 1;
-inline bool EventMessage::has_s() const {
+// required int64 participant_id = 1;
+inline bool EventMessage::has_participant_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void EventMessage::set_has_s() {
+inline void EventMessage::set_has_participant_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void EventMessage::clear_has_s() {
+inline void EventMessage::clear_has_participant_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void EventMessage::clear_s() {
-  if (s_ != &::google::protobuf::internal::kEmptyString) {
-    s_->clear();
+inline void EventMessage::clear_participant_id() {
+  participant_id_ = GOOGLE_LONGLONG(0);
+  clear_has_participant_id();
+}
+inline ::google::protobuf::int64 EventMessage::participant_id() const {
+  return participant_id_;
+}
+inline void EventMessage::set_participant_id(::google::protobuf::int64 value) {
+  set_has_participant_id();
+  participant_id_ = value;
+}
+
+// required int64 local_id = 2;
+inline bool EventMessage::has_local_id() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void EventMessage::set_has_local_id() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void EventMessage::clear_has_local_id() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void EventMessage::clear_local_id() {
+  local_id_ = GOOGLE_LONGLONG(0);
+  clear_has_local_id();
+}
+inline ::google::protobuf::int64 EventMessage::local_id() const {
+  return local_id_;
+}
+inline void EventMessage::set_local_id(::google::protobuf::int64 value) {
+  set_has_local_id();
+  local_id_ = value;
+}
+
+// required int64 global_id = 3;
+inline bool EventMessage::has_global_id() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void EventMessage::set_has_global_id() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void EventMessage::clear_has_global_id() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void EventMessage::clear_global_id() {
+  global_id_ = GOOGLE_LONGLONG(0);
+  clear_has_global_id();
+}
+inline ::google::protobuf::int64 EventMessage::global_id() const {
+  return global_id_;
+}
+inline void EventMessage::set_global_id(::google::protobuf::int64 value) {
+  set_has_global_id();
+  global_id_ = value;
+}
+
+// required string str = 4;
+inline bool EventMessage::has_str() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void EventMessage::set_has_str() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void EventMessage::clear_has_str() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void EventMessage::clear_str() {
+  if (str_ != &::google::protobuf::internal::kEmptyString) {
+    str_->clear();
   }
-  clear_has_s();
+  clear_has_str();
 }
-inline const ::std::string& EventMessage::s() const {
-  return *s_;
+inline const ::std::string& EventMessage::str() const {
+  return *str_;
 }
-inline void EventMessage::set_s(const ::std::string& value) {
-  set_has_s();
-  if (s_ == &::google::protobuf::internal::kEmptyString) {
-    s_ = new ::std::string;
+inline void EventMessage::set_str(const ::std::string& value) {
+  set_has_str();
+  if (str_ == &::google::protobuf::internal::kEmptyString) {
+    str_ = new ::std::string;
   }
-  s_->assign(value);
+  str_->assign(value);
 }
-inline void EventMessage::set_s(const char* value) {
-  set_has_s();
-  if (s_ == &::google::protobuf::internal::kEmptyString) {
-    s_ = new ::std::string;
+inline void EventMessage::set_str(const char* value) {
+  set_has_str();
+  if (str_ == &::google::protobuf::internal::kEmptyString) {
+    str_ = new ::std::string;
   }
-  s_->assign(value);
+  str_->assign(value);
 }
-inline void EventMessage::set_s(const char* value, size_t size) {
-  set_has_s();
-  if (s_ == &::google::protobuf::internal::kEmptyString) {
-    s_ = new ::std::string;
+inline void EventMessage::set_str(const char* value, size_t size) {
+  set_has_str();
+  if (str_ == &::google::protobuf::internal::kEmptyString) {
+    str_ = new ::std::string;
   }
-  s_->assign(reinterpret_cast<const char*>(value), size);
+  str_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* EventMessage::mutable_s() {
-  set_has_s();
-  if (s_ == &::google::protobuf::internal::kEmptyString) {
-    s_ = new ::std::string;
+inline ::std::string* EventMessage::mutable_str() {
+  set_has_str();
+  if (str_ == &::google::protobuf::internal::kEmptyString) {
+    str_ = new ::std::string;
   }
-  return s_;
+  return str_;
 }
-inline ::std::string* EventMessage::release_s() {
-  clear_has_s();
-  if (s_ == &::google::protobuf::internal::kEmptyString) {
+inline ::std::string* EventMessage::release_str() {
+  clear_has_str();
+  if (str_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
   } else {
-    ::std::string* temp = s_;
-    s_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    ::std::string* temp = str_;
+    str_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
     return temp;
   }
 }
-inline void EventMessage::set_allocated_s(::std::string* s) {
-  if (s_ != &::google::protobuf::internal::kEmptyString) {
-    delete s_;
+inline void EventMessage::set_allocated_str(::std::string* str) {
+  if (str_ != &::google::protobuf::internal::kEmptyString) {
+    delete str_;
   }
-  if (s) {
-    set_has_s();
-    s_ = s;
+  if (str) {
+    set_has_str();
+    str_ = str;
   } else {
-    clear_has_s();
-    s_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    clear_has_str();
+    str_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
-// required string participantID = 2;
-inline bool EventMessage::has_participantid() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+// required int64 cursor_location = 5;
+inline bool EventMessage::has_cursor_location() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void EventMessage::set_has_participantid() {
-  _has_bits_[0] |= 0x00000002u;
+inline void EventMessage::set_has_cursor_location() {
+  _has_bits_[0] |= 0x00000010u;
 }
-inline void EventMessage::clear_has_participantid() {
-  _has_bits_[0] &= ~0x00000002u;
+inline void EventMessage::clear_has_cursor_location() {
+  _has_bits_[0] &= ~0x00000010u;
 }
-inline void EventMessage::clear_participantid() {
-  if (participantid_ != &::google::protobuf::internal::kEmptyString) {
-    participantid_->clear();
-  }
-  clear_has_participantid();
+inline void EventMessage::clear_cursor_location() {
+  cursor_location_ = GOOGLE_LONGLONG(0);
+  clear_has_cursor_location();
 }
-inline const ::std::string& EventMessage::participantid() const {
-  return *participantid_;
+inline ::google::protobuf::int64 EventMessage::cursor_location() const {
+  return cursor_location_;
 }
-inline void EventMessage::set_participantid(const ::std::string& value) {
-  set_has_participantid();
-  if (participantid_ == &::google::protobuf::internal::kEmptyString) {
-    participantid_ = new ::std::string;
-  }
-  participantid_->assign(value);
+inline void EventMessage::set_cursor_location(::google::protobuf::int64 value) {
+  set_has_cursor_location();
+  cursor_location_ = value;
 }
-inline void EventMessage::set_participantid(const char* value) {
-  set_has_participantid();
-  if (participantid_ == &::google::protobuf::internal::kEmptyString) {
-    participantid_ = new ::std::string;
-  }
-  participantid_->assign(value);
+
+// required .WeWrite.EventMessage.OperationType operation_type = 6;
+inline bool EventMessage::has_operation_type() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void EventMessage::set_participantid(const char* value, size_t size) {
-  set_has_participantid();
-  if (participantid_ == &::google::protobuf::internal::kEmptyString) {
-    participantid_ = new ::std::string;
-  }
-  participantid_->assign(reinterpret_cast<const char*>(value), size);
+inline void EventMessage::set_has_operation_type() {
+  _has_bits_[0] |= 0x00000020u;
 }
-inline ::std::string* EventMessage::mutable_participantid() {
-  set_has_participantid();
-  if (participantid_ == &::google::protobuf::internal::kEmptyString) {
-    participantid_ = new ::std::string;
-  }
-  return participantid_;
+inline void EventMessage::clear_has_operation_type() {
+  _has_bits_[0] &= ~0x00000020u;
 }
-inline ::std::string* EventMessage::release_participantid() {
-  clear_has_participantid();
-  if (participantid_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = participantid_;
-    participantid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
+inline void EventMessage::clear_operation_type() {
+  operation_type_ = 1;
+  clear_has_operation_type();
 }
-inline void EventMessage::set_allocated_participantid(::std::string* participantid) {
-  if (participantid_ != &::google::protobuf::internal::kEmptyString) {
-    delete participantid_;
-  }
-  if (participantid) {
-    set_has_participantid();
-    participantid_ = participantid;
-  } else {
-    clear_has_participantid();
-    participantid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
+inline ::WeWrite::EventMessage_OperationType EventMessage::operation_type() const {
+  return static_cast< ::WeWrite::EventMessage_OperationType >(operation_type_);
+}
+inline void EventMessage::set_operation_type(::WeWrite::EventMessage_OperationType value) {
+  assert(::WeWrite::EventMessage_OperationType_IsValid(value));
+  set_has_operation_type();
+  operation_type_ = value;
 }
 
 
@@ -293,6 +413,10 @@ inline void EventMessage::set_allocated_participantid(::std::string* participant
 namespace google {
 namespace protobuf {
 
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::WeWrite::EventMessage_OperationType>() {
+  return ::WeWrite::EventMessage_OperationType_descriptor();
+}
 
 }  // namespace google
 }  // namespace protobuf

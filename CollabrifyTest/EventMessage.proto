@@ -2,16 +2,16 @@ package WeWrite;
 
 message EventMessage
 {
-    required int64 participantID = 1;
-    required int64 localID = 2;
-    required int64 globalID = 3;
+    required int64 participant_id = 1;
+    required int64 local_id = 2;
+    required int64 global_id = 3;
 
     required string str = 4;
-    required int64 cursorLoction = 5;
-    Enum OperationType
+    required int64 cursor_location = 5;
+    enum OperationType
     {
         APPEND = 1;
         DELETE = 0;
     }
-    required OperationType opType = 6;
+    required OperationType operation_type = 6;
 }

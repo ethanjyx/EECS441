@@ -10,7 +10,7 @@
 
 @interface CITViewController : UIViewController
 
-#define ACCOUNT_GMAIL @"yshuo@umich.edu"
-#define DISPLAY_NAME @"Shuo"
+#define ACCOUNT_GMAIL @"tywei@umich.edu"
+#define DISPLAY_NAME @"Tingyi"
 
 @end

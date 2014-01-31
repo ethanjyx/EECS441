@@ -15,7 +15,7 @@
 @property int globalID;
 @property NSString *str;
 @property int cursorLocation;
-@property BOOL operationType;
+@property int operationType;
 
 // Initializer for local operations, which will assign localID to the operation
 - (Operation *) initLocal;
