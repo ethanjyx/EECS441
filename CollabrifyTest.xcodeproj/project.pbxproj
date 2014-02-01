@@ -12,7 +12,8 @@
 		751292A61895B7EF006C3147 /* plugin.proto in Resources */ = {isa = PBXBuildFile; fileRef = 751292791895B7EF006C3147 /* plugin.proto */; };
 		751292A71895B7EF006C3147 /* descriptor.proto in Resources */ = {isa = PBXBuildFile; fileRef = 7512927E1895B7EF006C3147 /* descriptor.proto */; };
 		751292A81895B82A006C3147 /* config.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4DFC851832055F00DF989A /* config.h */; };
-		751292AB1895BC58006C3147 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 751292AA1895BC58006C3147 /* NSMutableArray+Stack.m */; };
+		751292B9189C2AE3006C3147 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 751292B6189C2AE3006C3147 /* Operation.m */; };
+		751292BA189C2AE3006C3147 /* OperationStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 751292B8189C2AE3006C3147 /* OperationStack.m */; };
 		8B2F45ED185826A9007407D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */; };
 		8B3D4C9A183F252E00662CC2 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B3D4C99183F252E00662CC2 /* libc++.dylib */; };
 		8B3D4CB3183F366B00662CC2 /* Collabrify.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */; };
@@ -35,6 +36,7 @@
 		B4F39F031895C5FF00D9312E /* EventMessage.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = B4F39F001895C5FF00D9312E /* EventMessage.pb.cc */; };
 		B4F39F041895C5FF00D9312E /* EventMessage.proto in Resources */ = {isa = PBXBuildFile; fileRef = B4F39F021895C5FF00D9312E /* EventMessage.proto */; };
 		B4F39F051895C63800D9312E /* config.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1849188ECCF100B39C5F /* config.h */; };
+		B4F39F0C189DAD2200D9312E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1847188ECCCF00B39C5F /* libprotobuf.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,8 +104,10 @@
 		751292A31895B7EF006C3147 /* wire_format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format.h; sourceTree = "<group>"; };
 		751292A41895B7EF006C3147 /* wire_format_lite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite.h; sourceTree = "<group>"; };
 		751292A51895B7EF006C3147 /* wire_format_lite_inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite_inl.h; sourceTree = "<group>"; };
-		751292A91895BC58006C3147 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
-		751292AA1895BC58006C3147 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
+		751292B5189C2AE3006C3147 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
+		751292B6189C2AE3006C3147 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
+		751292B7189C2AE3006C3147 /* OperationStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationStack.h; sourceTree = "<group>"; };
+		751292B8189C2AE3006C3147 /* OperationStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationStack.m; sourceTree = "<group>"; };
 		8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8B3D4C99183F252E00662CC2 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Collabrify.bundle; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				751292A81895B82A006C3147 /* config.h in Frameworks */,
 				8B9733EC1870A598008E49C3 /* libprotobuf.a in Frameworks */,
 				8B4DFBDA183204E300DF989A /* UIKit.framework in Frameworks */,
+				B4F39F0C189DAD2200D9312E /* libprotobuf.a in Frameworks */,
 				8B4DFBD8183204E300DF989A /* CoreGraphics.framework in Frameworks */,
 				8B4DFBD6183204E300DF989A /* Foundation.framework in Frameworks */,
 			);
@@ -336,11 +341,13 @@
 		8B4DFBDB183204E300DF989A /* CollabrifyTest */ = {
 			isa = PBXGroup;
 			children = (
+				751292B5189C2AE3006C3147 /* Operation.h */,
+				751292B6189C2AE3006C3147 /* Operation.m */,
+				751292B7189C2AE3006C3147 /* OperationStack.h */,
+				751292B8189C2AE3006C3147 /* OperationStack.m */,
 				B4F39F001895C5FF00D9312E /* EventMessage.pb.cc */,
 				B4F39F011895C5FF00D9312E /* EventMessage.pb.h */,
 				B4F39F021895C5FF00D9312E /* EventMessage.proto */,
-				751292A91895BC58006C3147 /* NSMutableArray+Stack.h */,
-				751292AA1895BC58006C3147 /* NSMutableArray+Stack.m */,
 				8B3D4CA1183F29C700662CC2 /* iPad */,
 				8B4DFBE4183204E400DF989A /* CITAppDelegate.h */,
 				8B4DFBE5183204E400DF989A /* CITAppDelegate.m */,
@@ -492,11 +499,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B4DFBE2183204E400DF989A /* main.m in Sources */,
-				751292AB1895BC58006C3147 /* NSMutableArray+Stack.m in Sources */,
 				8B3D4CC61844791F00662CC2 /* CITListSessionsTableViewController.m in Sources */,
 				B4F39F031895C5FF00D9312E /* EventMessage.pb.cc in Sources */,
+				751292B9189C2AE3006C3147 /* Operation.m in Sources */,
 				8B4DFBEC183204E400DF989A /* CITViewController.m in Sources */,
 				8B4DFBE6183204E400DF989A /* CITAppDelegate.m in Sources */,
+				751292BA189C2AE3006C3147 /* OperationStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +658,7 @@
 					/Users/bknope/Developer/Work/CollabrifyTest,
 					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
 					/Users/tingyi/Documents/EECS441/EECS441,
+					"/Users/tingyi/Documents/EECS441/Collabrify\\ iOS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -686,6 +695,7 @@
 					/Users/bknope/Developer/Work/CollabrifyTest,
 					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
 					/Users/tingyi/Documents/EECS441/EECS441,
+					"/Users/tingyi/Documents/EECS441/Collabrify\\ iOS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

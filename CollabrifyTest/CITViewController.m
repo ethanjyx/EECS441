@@ -9,6 +9,8 @@
 #import "CITViewController.h"
 #import <Collabrify/Collabrify.h>
 #import "CITListSessionsTableViewController.h"
+#import "Operation.h"
+#import "EventTranslator.h"
 
 @interface CITViewController () < CollabrifyClientDelegate, CITListSessionsTableViewControllerDelegate, UITextFieldDelegate >
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
@@ -142,11 +144,15 @@
  */
 - (void)client:(CollabrifyClient *)client receivedEventWithOrderID:(int64_t)orderID submissionRegistrationID:(int32_t)submissionRegistrationID eventType:(NSString *)eventType data:(NSData *)data
 {
+    /*
     NSString *chatMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     dispatch_async(dispatch_get_main_queue(), ^{
          [[self statusLabel] setText:chatMessage];
     });
+     */
+    
+    
 }
 
 
@@ -217,6 +223,24 @@
         NSData *textData = [text dataUsingEncoding:NSUTF8StringEncoding];
         
         int submissionID = [[self client] broadcast:textData eventType:@"ChatMessageType"];
+    }
+}
+
+// function to broadcast an operation
+// return 0 on success, -1 for failure
+- (int)broadcastOperation:(Operation *)operation
+{
+    NSData *textData = [EventTranslator operationToString:operation];
+    int submissionRegistrationID = [[self client] broadcast:textData eventType:nil];
+    if(submissionRegistrationID == -1)
+    {
+        NSLog(@"Failed to send operation.\n");
+        return -1;
+    }
+    else
+    {
+        [operation setSubmissionID:submissionRegistrationID];
+        return 0;
     }
 }
 

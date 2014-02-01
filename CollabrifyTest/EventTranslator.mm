@@ -11,29 +11,37 @@
 
 @implementation EventTranslator
 
-- (int) sendOperation:(Operation *)operation
++ (NSData *) operationToString: (Operation *) operation
 {
     WeWrite::EventMessage message;
     
     message.set_participant_id([operation participantID]);
     message.set_local_id([operation localID]);
     message.set_global_id([operation globalID]);
-    std::string c_str = [operation.str cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    message.set_str(c_str);
-    message.set_cursor_location([operation cursorLocation]);
-    message.set_operation_type((::WeWrite:: EventMessage_OperationType)(operation.operationType));
+    std::string c_str = [operation.originalString cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    message.set_originalstring(c_str);
+    c_str = [operation.replacementString cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    message.set_replacementstring(c_str);
+    WeWrite:: NSRange *range = new WeWrite::NSRange();
+    range->set_length(operation.range.length);
+    range->set_location(operation.range.location);
+    message.set_allocated_range(range);
     
-    std::string serilized_str;
-    if(!message.SerializeAsString(&serilized_str))
+    // Serialize as NSData
+    std::string serilized_str = message.SerializeAsString();
+    if(!serilized_str.size())
     {
-        cerr << "Failed to serilize operation." << endl;
-        return -1;
+        NSLog(@"Failed to serilize operation.\n");
+        return nil;
     }
-    textData = [NSData dataWithBytes:serilized_str.c_str() length:serilized_str.size()];
-    int submissionRegistrationID = [ broadcast:textData eventType:nil];
-    if(submissionRegistrationID == -1)
     
-    return 1;
+    NSData *textData = [NSData dataWithBytes:serilized_str.c_str() length:serilized_str.size()];
+    
+    return textData;
 }
-
+/*
++ (Operation *) stringToOperation: (NSData *) textData
+{
+    Operation *operation = [[Operation alloc] initGlobal]
+}*/
 @end
