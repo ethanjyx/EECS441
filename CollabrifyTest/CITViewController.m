@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createSessionButton;
 @property (weak, nonatomic) IBOutlet UIButton *leaveSessionButton;
-@property (weak, nonatomic) IBOutlet UITextView *textEditor;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *joinSessionButton;
 
 @property (strong, nonatomic) CollabrifyClient *client;
@@ -36,10 +36,18 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [[event allTouches] anyObject];
-    if ([[self textEditor] isFirstResponder] && [touch view] != [self textEditor]) {
-        [[self textEditor] resignFirstResponder];
+    if ([[self textView] isFirstResponder] && [touch view] != [self textView]) {
+        [[self textView] resignFirstResponder];
     }
     [super touchesBegan:touches withEvent:event];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSLog(@"text: %@", text);
+    NSLog(@"range length: %d", range.length);
+    NSLog(@"range loc: %d", range.location);
+    NSLog(@"textView text: %@", textView.text);
+    return YES;
 }
 
 - (void)textViewDidChange:(UITextView *) textEditor {
@@ -398,9 +406,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self textEditor].layer.borderWidth = 5.0f;
-    [self textEditor].layer.borderColor = [[UIColor grayColor] CGColor];
+    [self textView].layer.borderWidth = 5.0f;
+    [self textView].layer.borderColor = [[UIColor grayColor] CGColor];
     [[self leaveSessionButton] setEnabled:YES];
+    [[self textView] setDelegate: (id<UITextViewDelegate>)self];
 }
 
 - (void)dealloc
