@@ -12,5 +12,6 @@
 @interface EventTranslator : NSObject
 
 + (NSData *) operationToString: (Operation *) operation;
++ (Operation *) stringToOperation: (NSData *) textData;
 
 @end

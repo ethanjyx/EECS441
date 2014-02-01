@@ -13,7 +13,6 @@
 		751292A71895B7EF006C3147 /* descriptor.proto in Resources */ = {isa = PBXBuildFile; fileRef = 7512927E1895B7EF006C3147 /* descriptor.proto */; };
 		751292A81895B82A006C3147 /* config.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4DFC851832055F00DF989A /* config.h */; };
 		751292B9189C2AE3006C3147 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 751292B6189C2AE3006C3147 /* Operation.m */; };
-		751292BA189C2AE3006C3147 /* OperationStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 751292B8189C2AE3006C3147 /* OperationStack.m */; };
 		8B2F45ED185826A9007407D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */; };
 		8B3D4C9A183F252E00662CC2 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B3D4C99183F252E00662CC2 /* libc++.dylib */; };
 		8B3D4CB3183F366B00662CC2 /* Collabrify.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */; };
@@ -33,6 +32,8 @@
 		8B4DFBFF183204E400DF989A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8B4DFBFD183204E400DF989A /* InfoPlist.strings */; };
 		8B4DFC01183204E400DF989A /* CollabrifyTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4DFC00183204E400DF989A /* CollabrifyTestTests.m */; };
 		8B9733EC1870A598008E49C3 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9733EB1870A598008E49C3 /* libprotobuf.a */; };
+		B46214A5189DB023003BE28E /* EventTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = B46214A2189DB023003BE28E /* EventTranslator.mm */; };
+		B46214A6189DB023003BE28E /* OperationDeque.m in Sources */ = {isa = PBXBuildFile; fileRef = B46214A4189DB023003BE28E /* OperationDeque.m */; };
 		B4F39F031895C5FF00D9312E /* EventMessage.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = B4F39F001895C5FF00D9312E /* EventMessage.pb.cc */; };
 		B4F39F041895C5FF00D9312E /* EventMessage.proto in Resources */ = {isa = PBXBuildFile; fileRef = B4F39F021895C5FF00D9312E /* EventMessage.proto */; };
 		B4F39F051895C63800D9312E /* config.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1849188ECCF100B39C5F /* config.h */; };
@@ -106,8 +107,6 @@
 		751292A51895B7EF006C3147 /* wire_format_lite_inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite_inl.h; sourceTree = "<group>"; };
 		751292B5189C2AE3006C3147 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
 		751292B6189C2AE3006C3147 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
-		751292B7189C2AE3006C3147 /* OperationStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationStack.h; sourceTree = "<group>"; };
-		751292B8189C2AE3006C3147 /* OperationStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationStack.m; sourceTree = "<group>"; };
 		8B2F45EC185826A9007407D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8B3D4C99183F252E00662CC2 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		8B3D4CB2183F366B00662CC2 /* Collabrify.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Collabrify.bundle; sourceTree = "<group>"; };
@@ -134,6 +133,10 @@
 		8B4DFC00183204E400DF989A /* CollabrifyTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollabrifyTestTests.m; sourceTree = "<group>"; };
 		8B4DFC851832055F00DF989A /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		8B9733EB1870A598008E49C3 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = "<group>"; };
+		B46214A1189DB023003BE28E /* EventTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTranslator.h; sourceTree = "<group>"; };
+		B46214A2189DB023003BE28E /* EventTranslator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventTranslator.mm; sourceTree = "<group>"; };
+		B46214A3189DB023003BE28E /* OperationDeque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationDeque.h; sourceTree = "<group>"; };
+		B46214A4189DB023003BE28E /* OperationDeque.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationDeque.m; sourceTree = "<group>"; };
 		B4F39F001895C5FF00D9312E /* EventMessage.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventMessage.pb.cc; sourceTree = "<group>"; };
 		B4F39F011895C5FF00D9312E /* EventMessage.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMessage.pb.h; sourceTree = "<group>"; };
 		B4F39F021895C5FF00D9312E /* EventMessage.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EventMessage.proto; sourceTree = "<group>"; };
@@ -341,10 +344,12 @@
 		8B4DFBDB183204E300DF989A /* CollabrifyTest */ = {
 			isa = PBXGroup;
 			children = (
+				B46214A1189DB023003BE28E /* EventTranslator.h */,
+				B46214A2189DB023003BE28E /* EventTranslator.mm */,
+				B46214A3189DB023003BE28E /* OperationDeque.h */,
+				B46214A4189DB023003BE28E /* OperationDeque.m */,
 				751292B5189C2AE3006C3147 /* Operation.h */,
 				751292B6189C2AE3006C3147 /* Operation.m */,
-				751292B7189C2AE3006C3147 /* OperationStack.h */,
-				751292B8189C2AE3006C3147 /* OperationStack.m */,
 				B4F39F001895C5FF00D9312E /* EventMessage.pb.cc */,
 				B4F39F011895C5FF00D9312E /* EventMessage.pb.h */,
 				B4F39F021895C5FF00D9312E /* EventMessage.proto */,
@@ -503,8 +508,9 @@
 				B4F39F031895C5FF00D9312E /* EventMessage.pb.cc in Sources */,
 				751292B9189C2AE3006C3147 /* Operation.m in Sources */,
 				8B4DFBEC183204E400DF989A /* CITViewController.m in Sources */,
+				B46214A6189DB023003BE28E /* OperationDeque.m in Sources */,
 				8B4DFBE6183204E400DF989A /* CITAppDelegate.m in Sources */,
-				751292BA189C2AE3006C3147 /* OperationStack.m in Sources */,
+				B46214A5189DB023003BE28E /* EventTranslator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
