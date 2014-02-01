@@ -36,6 +36,7 @@
 		B4F39F031895C5FF00D9312E /* EventMessage.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = B4F39F001895C5FF00D9312E /* EventMessage.pb.cc */; };
 		B4F39F041895C5FF00D9312E /* EventMessage.proto in Resources */ = {isa = PBXBuildFile; fileRef = B4F39F021895C5FF00D9312E /* EventMessage.proto */; };
 		B4F39F051895C63800D9312E /* config.h in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1849188ECCF100B39C5F /* config.h */; };
+		B4F39F0C189DAD2200D9312E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 750A1847188ECCCF00B39C5F /* libprotobuf.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 				751292A81895B82A006C3147 /* config.h in Frameworks */,
 				8B9733EC1870A598008E49C3 /* libprotobuf.a in Frameworks */,
 				8B4DFBDA183204E300DF989A /* UIKit.framework in Frameworks */,
+				B4F39F0C189DAD2200D9312E /* libprotobuf.a in Frameworks */,
 				8B4DFBD8183204E300DF989A /* CoreGraphics.framework in Frameworks */,
 				8B4DFBD6183204E300DF989A /* Foundation.framework in Frameworks */,
 			);
@@ -656,6 +658,7 @@
 					/Users/bknope/Developer/Work/CollabrifyTest,
 					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
 					/Users/tingyi/Documents/EECS441/EECS441,
+					"/Users/tingyi/Documents/EECS441/Collabrify\\ iOS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -692,6 +695,7 @@
 					/Users/bknope/Developer/Work/CollabrifyTest,
 					"/Users/yangshuo/Documents/2014Winter/EECS441/p1/Collabrify\\ iOS",
 					/Users/tingyi/Documents/EECS441/EECS441,
+					"/Users/tingyi/Documents/EECS441/Collabrify\\ iOS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -13,9 +13,10 @@
 @property int participantID;
 @property int localID;
 @property int globalID;
-@property NSString *str;
-@property int cursorLocation;
-@property int operationType;
+@property int submissionID;
+@property NSString *originalString;
+@property NSString *replacementString;
+@property NSRange range;
 
 // Initializer for local operations, which will assign localID to the operation
 - (Operation *) initLocal;

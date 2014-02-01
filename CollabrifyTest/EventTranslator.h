@@ -11,6 +11,6 @@
 
 @interface EventTranslator : NSObject
 
-- (void) sendOperation: (Operation *) operation;
++ (NSData *) operationToString: (Operation *) operation;
 
 @end

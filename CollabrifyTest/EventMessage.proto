@@ -1,17 +1,17 @@
 package WeWrite;
 
+message NSRange{
+	required int64 location = 1;
+	required int64 length = 2;
+}
+
 message EventMessage
 {
     required int64 participant_id = 1;
     required int64 local_id = 2;
     required int64 global_id = 3;
 
-    required string str = 4;
-    required int64 cursor_location = 5;
-    enum OperationType
-    {
-        APPEND = 1;
-        DELETE = 0;
-    }
-    required OperationType operation_type = 6;
+    required string originalString = 4;
+    required string replacementString = 5;
+    required NSRange range = 6;
 }

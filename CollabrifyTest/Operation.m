@@ -13,9 +13,10 @@
 @synthesize participantID = _participantID;
 @synthesize localID = _localID;
 @synthesize globalID = _globalID;
-@synthesize str = _str;
-@synthesize cursorLocation = _cursorLocation;
-@synthesize operationType = _operationType;
+@synthesize submissionID = _submissionID;
+@synthesize originalString = _originalString;
+@synthesize replacementString = _replacementString;
+@synthesize range = _range;
 
 static int nextLocalID = 0;
 
@@ -23,6 +24,7 @@ static int nextLocalID = 0;
 {
     if(self = [super init])
     {
+        // initialize localID unique for each local operation
         _localID = [self.class getNextLocalID];
     }
     return self;
