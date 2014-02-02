@@ -44,6 +44,10 @@
     return deque.count == 0;
 }
 
+-(NSMutableArray*) getDequeObj {
+    return deque;
+}
+
 -(NSString *)description{
     NSMutableString *result = [[NSMutableString alloc] initWithString:@"["];
     for (id s in deque) {

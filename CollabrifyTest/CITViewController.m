@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) CollabrifyClient *client;
 @property (strong, nonatomic) NSArray *tags; //of NSString
+@property (strong, nonatomic) OperationManager *opManager;
 @property (weak, nonatomic) IBOutlet UILabel *connectionLabel;
 @property (weak, nonatomic) IBOutlet UITextField *broadcastTextField;
 @property (weak, nonatomic) IBOutlet UILabel *sessionNameLabel;
@@ -174,34 +175,61 @@
 
 - (void)handleReceivedOperation:(Operation *)operation
 {
-    if (operation.submissionID == -1) {
+ //   if (operation.submissionID == -1) {
         dispatch_sync(dispatch_get_main_queue(), ^{
-        NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
-        // remember the cursor location.
-        NSRange tempRange = self.textEditor.selectedRange;
-        //NSString *temptext = [OperationManager getOperationManager].confirmedText.copy;
-        //[OperationManager getOperationManager].confirmedText = [temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
-        self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
-        [[OperationManager getOperationManager] setConfirmedText:[[self textEditor] text]];
+            NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
+            //Boolean delete = false;
+            //if (operation.range.length > operation.replacementString.length)
+            //    delete = true;
+            // remember the cursor location.
+            NSRange tempRange = self.textEditor.selectedRange;
+            NSString *temptext = [OperationManager getOperationManager].confirmedText.copy;
+            [OperationManager getOperationManager].confirmedText = [temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
+            for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
+                Operation *tempOp = [[self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i] copy];
+                NSRange trange = tempOp.range;
+                if (operation.range.location < [tempOp range].location) {
+                    if ((int)[tempOp range].location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
+                        trange.location += (NSUInteger)operation.replacementString.length - (NSUInteger)operation.range.length;
+                    }
+                    else
+                        trange.location = 0;
+                    tempOp.range = trange;
+                    [self.opManager.unconfirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
+                }
+                if (operation.range.location < tempRange.location) {
+                    if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.location > 0) {
+                        tempRange.location +=operation.replacementString.length - operation.range.location;
+                    } else
+                        tempRange.location = 0;
+                }
+                temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
+
+            }
+            if (operation.localID == [self.opManager.unconfirmedOp.bottom localID] && operation.submissionID != -1)
+                [self.opManager.unconfirmedOp popbot];
+            self.textEditor.text = temptext;
+            [self.opManager setConfirmedText:[[self textEditor] text]];
+            [[self.opManager confirmedOp] push_back:operation];
             
-        /*
-        // update cursor place.
-        int startIndex = tempRange.location;
-        int endIndex = tempRange.location + tempRange.length;
-        startIndex = [self updateIndex:startIndex
-        AfterOperation:operation
-        authorID:-1];
-        endIndex = [self updateIndex:endIndex
-        AfterOperation:operation
-        authorID:-1];
-        tempRange.location = startIndex;
-        tempRange.length = endIndex - startIndex;
-        */
-        //    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
-        // set the cursor location back.
-        self.textEditor.selectedRange = tempRange;
+            /*
+             // update cursor place.
+             int startIndex = tempRange.location;
+             int endIndex = tempRange.location + tempRange.length;
+             startIndex = [self updateIndex:startIndex
+             AfterOperation:operation
+             authorID:-1];
+             endIndex = [self updateIndex:endIndex
+             AfterOperation:operation
+             authorID:-1];
+             tempRange.location = startIndex;
+             tempRange.length = endIndex - startIndex;
+             */
+            //    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
+            // set the cursor location back.
+            self.textEditor.selectedRange = tempRange;
         });
-    }
+  //  }
 }
 
 
@@ -483,6 +511,7 @@
     [self textEditor].layer.borderColor = [[UIColor grayColor] CGColor];
     [[self leaveSessionButton] setEnabled:YES];
     [[self textEditor] setDelegate: (id<UITextViewDelegate>)self];
+    self.opManager = [OperationManager getOperationManager];
 }
 
 - (void)dealloc
