@@ -11,6 +11,7 @@
 #import "CITListSessionsTableViewController.h"
 #import "Operation.h"
 #import "EventTranslator.h"
+#import "OperationManager.h"
 
 @interface CITViewController () < CollabrifyClientDelegate, CITListSessionsTableViewControllerDelegate, UITextFieldDelegate >
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
@@ -52,6 +53,7 @@
     [op setParticipantID: self.client.participantID];
     [op setOriginalString:[textView.text substringWithRange:range]];
     [op setReplacementString: text];
+    [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     
     /* print out */
     if (text.length == 0){
