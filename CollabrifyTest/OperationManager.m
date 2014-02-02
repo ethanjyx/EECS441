@@ -51,8 +51,10 @@ static OperationManager* manager;
 
 - (void)setConfirmedText:(NSString *)Text
 {
-    if (_confirmedText == nil)
+    if (_confirmedText == nil) {
         _confirmedText = [[NSString alloc] init];
+        _confirmedText = @"";
+    }
     self.confirmedText = Text;
 }
 @end
