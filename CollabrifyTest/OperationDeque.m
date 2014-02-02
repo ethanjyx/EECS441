@@ -33,11 +33,11 @@
 }
 
 -(id)top{
-    return [[deque firstObject] copy];
+    return [deque firstObject];
 }
 
 -(id)bottom{
-    return [[deque lastObject] copy];
+    return [deque lastObject];
 }
 
 -(BOOL)isEmpty{

@@ -188,6 +188,7 @@
             [self.opManager setConfirmedText:[temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString]];
             temptext = self.opManager.confirmedText;
             NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
+            NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] bottom] localID]);
             if (operation.localID == [self.opManager.unconfirmedOp.bottom localID] && operation.submissionID != -1)
                 [self.opManager.unconfirmedOp popbot];
             for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
