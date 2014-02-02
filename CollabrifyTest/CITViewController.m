@@ -185,6 +185,7 @@
             NSRange tempRange = self.textEditor.selectedRange;
             NSString *temptext = [OperationManager getOperationManager].confirmedText.copy;
             [OperationManager getOperationManager].confirmedText = [temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
+            NSLog(@"temptext %@ confirmedText %@", temptext, [OperationManager getOperationManager].confirmedText);
             for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
                 Operation *tempOp = [[self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i] copy];
                 NSRange trange = tempOp.range;
