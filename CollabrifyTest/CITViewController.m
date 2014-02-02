@@ -183,9 +183,13 @@
             //    delete = true;
             // remember the cursor location.
             NSRange tempRange = self.textEditor.selectedRange;
-            NSString *temptext = [OperationManager getOperationManager].confirmedText.copy;
-            [OperationManager getOperationManager].confirmedText = [temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
-            NSLog(@"temptext %@ confirmedText %@", temptext, [OperationManager getOperationManager].confirmedText);
+            NSString *temptext = [NSString stringWithFormat:@"%@", self.opManager.confirmedText];
+            NSLog(@"Before: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
+            [self.opManager setConfirmedText:[temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString]];
+            temptext = self.opManager.confirmedText;
+            NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
+            if (operation.localID == [self.opManager.unconfirmedOp.bottom localID] && operation.submissionID != -1)
+                [self.opManager.unconfirmedOp popbot];
             for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
                 Operation *tempOp = [[self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i] copy];
                 NSRange trange = tempOp.range;
@@ -207,8 +211,7 @@
                 temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
 
             }
-            if (operation.localID == [self.opManager.unconfirmedOp.bottom localID] && operation.submissionID != -1)
-                [self.opManager.unconfirmedOp popbot];
+            
             self.textEditor.text = temptext;
             [self.opManager setConfirmedText:[[self textEditor] text]];
             [[self.opManager confirmedOp] push_back:operation];

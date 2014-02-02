@@ -49,6 +49,14 @@ static OperationManager* manager;
     return _redoStack;
 }
 
+- (NSString*) confirmedText;{
+    if (_confirmedText == nil) {
+        _confirmedText = [[NSString alloc] init];
+        _confirmedText = @"";
+    }
+    return _confirmedText;
+}
+
 - (void)setConfirmedText:(NSString *)Text
 {
     if (_confirmedText == nil) {
