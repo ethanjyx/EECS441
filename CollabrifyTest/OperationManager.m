@@ -55,6 +55,6 @@ static OperationManager* manager;
         _confirmedText = [[NSString alloc] init];
         _confirmedText = @"";
     }
-    self.confirmedText = Text;
+    _confirmedText = Text;
 }
 @end
