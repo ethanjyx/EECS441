@@ -173,6 +173,7 @@
 
 - (void)handleReceivedOperation:(Operation *)operation
 {
+    dispatch_sync(dispatch_get_main_queue(), ^{
     NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
     // remember the cursor location.
     NSRange tempRange = self.textEditor.selectedRange;
@@ -196,6 +197,7 @@
 //    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
     // set the cursor location back.
     self.textEditor.selectedRange = tempRange;
+    });
 }
 
 
