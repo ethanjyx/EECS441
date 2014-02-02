@@ -231,6 +231,13 @@ class EventMessage : public ::google::protobuf::Message {
   inline ::WeWrite::NSRange* release_range();
   inline void set_allocated_range(::WeWrite::NSRange* range);
 
+  // required int64 cursormove = 6;
+  inline bool has_cursormove() const;
+  inline void clear_cursormove();
+  static const int kCursormoveFieldNumber = 6;
+  inline ::google::protobuf::int64 cursormove() const;
+  inline void set_cursormove(::google::protobuf::int64 value);
+
   // @@protoc_insertion_point(class_scope:WeWrite.EventMessage)
  private:
   inline void set_has_participant_id();
@@ -243,6 +250,8 @@ class EventMessage : public ::google::protobuf::Message {
   inline void clear_has_replacement_string();
   inline void set_has_range();
   inline void clear_has_range();
+  inline void set_has_cursormove();
+  inline void clear_has_cursormove();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -251,9 +260,10 @@ class EventMessage : public ::google::protobuf::Message {
   ::std::string* original_string_;
   ::std::string* replacement_string_;
   ::WeWrite::NSRange* range_;
+  ::google::protobuf::int64 cursormove_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
 
   friend void  protobuf_AddDesc_EventMessage_2eproto();
   friend void protobuf_AssignDesc_EventMessage_2eproto();
@@ -537,6 +547,28 @@ inline void EventMessage::set_allocated_range(::WeWrite::NSRange* range) {
   } else {
     clear_has_range();
   }
+}
+
+// required int64 cursormove = 6;
+inline bool EventMessage::has_cursormove() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void EventMessage::set_has_cursormove() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void EventMessage::clear_has_cursormove() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void EventMessage::clear_cursormove() {
+  cursormove_ = GOOGLE_LONGLONG(0);
+  clear_has_cursormove();
+}
+inline ::google::protobuf::int64 EventMessage::cursormove() const {
+  return cursormove_;
+}
+inline void EventMessage::set_cursormove(::google::protobuf::int64 value) {
+  set_has_cursormove();
+  cursormove_ = value;
 }
 
 

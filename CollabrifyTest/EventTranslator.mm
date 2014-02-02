@@ -25,6 +25,7 @@
     range->set_length(operation.range.length);
     range->set_location(operation.range.location);
     message.set_allocated_range(range);
+    message.set_cursormove(operation.cursormove);
     
     // Serialize as NSData
     std::string serilized_str = message.SerializeAsString();
@@ -53,6 +54,7 @@
     range.length = (long)message.range().length();
     range.location = (unsigned int)message.range().location();
     operation.range = range;
+    operation.cursormove = message.cursormove();
     
     return operation;
 }

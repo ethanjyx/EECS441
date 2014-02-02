@@ -17,6 +17,7 @@
 @synthesize originalString = _originalString;
 @synthesize replacementString = _replacementString;
 @synthesize range = _range;
+@synthesize cursormove;
 
 static int nextLocalID = 0;
 
