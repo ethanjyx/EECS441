@@ -53,6 +53,7 @@
     [op setParticipantID: self.client.participantID];
     [op setOriginalString:[textView.text substringWithRange:range]];
     [op setReplacementString: text];
+    [op setRange:range];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [self broadcastOperation:op];
     
