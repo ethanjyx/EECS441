@@ -54,6 +54,7 @@
     [op setOriginalString:[textView.text substringWithRange:range]];
     [op setReplacementString: text];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
+    [self broadcastOperation:op];
     
     /* print out */
     if (text.length == 0){
