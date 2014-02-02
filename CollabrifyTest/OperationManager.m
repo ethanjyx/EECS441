@@ -15,7 +15,7 @@ static OperationManager* manager;
 @synthesize confirmedOp = _confirmedOp;
 @synthesize unconfirmedOp = _unconfirmedOp;
 @synthesize redoStack = _redoStack;
-//@synthesize confirmedText = _confirmedText;
+@synthesize confirmedText = _confirmedText;
 
 + (OperationManager*) getOperationManager
 {
@@ -51,6 +51,8 @@ static OperationManager* manager;
 
 - (void)setConfirmedText:(NSString *)Text
 {
+    if (_confirmedText == nil)
+        _confirmedText = [[NSString alloc] init];
     self.confirmedText = Text;
 }
 @end
