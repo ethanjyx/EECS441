@@ -176,8 +176,10 @@
     NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
     // remember the cursor location.
     NSRange tempRange = self.textEditor.selectedRange;
-    NSString *temptext = [OperationManager getOperationManager].confirmedText.copy;
-    [OperationManager getOperationManager].confirmedText = [temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
+    //NSString *temptext = [OperationManager getOperationManager].confirmedText.copy;
+    //[OperationManager getOperationManager].confirmedText = [temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
+    self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:operation.range withString:operation.replacementString];
+    [[OperationManager getOperationManager] setConfirmedText:[[self textEditor] text]];
     /*
      // update cursor place.
      int startIndex = tempRange.location;
@@ -191,7 +193,7 @@
      tempRange.location = startIndex;
      tempRange.length = endIndex - startIndex;
      */
-    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
+//    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
     // set the cursor location back.
     self.textEditor.selectedRange = tempRange;
 }
