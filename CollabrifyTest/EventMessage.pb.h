@@ -198,41 +198,34 @@ class EventMessage : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 local_id() const;
   inline void set_local_id(::google::protobuf::int64 value);
 
-  // required int64 global_id = 3;
-  inline bool has_global_id() const;
-  inline void clear_global_id();
-  static const int kGlobalIdFieldNumber = 3;
-  inline ::google::protobuf::int64 global_id() const;
-  inline void set_global_id(::google::protobuf::int64 value);
+  // required string original_string = 3;
+  inline bool has_original_string() const;
+  inline void clear_original_string();
+  static const int kOriginalStringFieldNumber = 3;
+  inline const ::std::string& original_string() const;
+  inline void set_original_string(const ::std::string& value);
+  inline void set_original_string(const char* value);
+  inline void set_original_string(const char* value, size_t size);
+  inline ::std::string* mutable_original_string();
+  inline ::std::string* release_original_string();
+  inline void set_allocated_original_string(::std::string* original_string);
 
-  // required string originalString = 4;
-  inline bool has_originalstring() const;
-  inline void clear_originalstring();
-  static const int kOriginalStringFieldNumber = 4;
-  inline const ::std::string& originalstring() const;
-  inline void set_originalstring(const ::std::string& value);
-  inline void set_originalstring(const char* value);
-  inline void set_originalstring(const char* value, size_t size);
-  inline ::std::string* mutable_originalstring();
-  inline ::std::string* release_originalstring();
-  inline void set_allocated_originalstring(::std::string* originalstring);
+  // required string replacement_string = 4;
+  inline bool has_replacement_string() const;
+  inline void clear_replacement_string();
+  static const int kReplacementStringFieldNumber = 4;
+  inline const ::std::string& replacement_string() const;
+  inline void set_replacement_string(const ::std::string& value);
+  inline void set_replacement_string(const char* value);
+  inline void set_replacement_string(const char* value, size_t size);
+  inline ::std::string* mutable_replacement_string();
+  inline ::std::string* release_replacement_string();
+  inline void set_allocated_replacement_string(::std::string* replacement_string);
 
-  // required string replacementString = 5;
-  inline bool has_replacementstring() const;
-  inline void clear_replacementstring();
-  static const int kReplacementStringFieldNumber = 5;
-  inline const ::std::string& replacementstring() const;
-  inline void set_replacementstring(const ::std::string& value);
-  inline void set_replacementstring(const char* value);
-  inline void set_replacementstring(const char* value, size_t size);
-  inline ::std::string* mutable_replacementstring();
-  inline ::std::string* release_replacementstring();
-  inline void set_allocated_replacementstring(::std::string* replacementstring);
-
-  // required .WeWrite.NSRange range = 6;
+  // required .WeWrite.NSRange range = 5;
   inline bool has_range() const;
   inline void clear_range();
-  static const int kRangeFieldNumber = 6;
+  static const int kRangeFieldNumber = 5;
   inline const ::WeWrite::NSRange& range() const;
   inline ::WeWrite::NSRange* mutable_range();
   inline ::WeWrite::NSRange* release_range();
@@ -244,12 +237,10 @@ class EventMessage : public ::google::protobuf::Message {
   inline void clear_has_participant_id();
   inline void set_has_local_id();
   inline void clear_has_local_id();
-  inline void set_has_global_id();
-  inline void clear_has_global_id();
-  inline void set_has_originalstring();
-  inline void clear_has_originalstring();
-  inline void set_has_replacementstring();
-  inline void clear_has_replacementstring();
+  inline void set_has_original_string();
+  inline void clear_has_original_string();
+  inline void set_has_replacement_string();
+  inline void clear_has_replacement_string();
   inline void set_has_range();
   inline void clear_has_range();
 
@@ -257,13 +248,12 @@ class EventMessage : public ::google::protobuf::Message {
 
   ::google::protobuf::int64 participant_id_;
   ::google::protobuf::int64 local_id_;
-  ::google::protobuf::int64 global_id_;
-  ::std::string* originalstring_;
-  ::std::string* replacementstring_;
+  ::std::string* original_string_;
+  ::std::string* replacement_string_;
   ::WeWrite::NSRange* range_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
   friend void  protobuf_AddDesc_EventMessage_2eproto();
   friend void protobuf_AssignDesc_EventMessage_2eproto();
@@ -371,177 +361,155 @@ inline void EventMessage::set_local_id(::google::protobuf::int64 value) {
   local_id_ = value;
 }
 
-// required int64 global_id = 3;
-inline bool EventMessage::has_global_id() const {
+// required string original_string = 3;
+inline bool EventMessage::has_original_string() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void EventMessage::set_has_global_id() {
+inline void EventMessage::set_has_original_string() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void EventMessage::clear_has_global_id() {
+inline void EventMessage::clear_has_original_string() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void EventMessage::clear_global_id() {
-  global_id_ = GOOGLE_LONGLONG(0);
-  clear_has_global_id();
+inline void EventMessage::clear_original_string() {
+  if (original_string_ != &::google::protobuf::internal::kEmptyString) {
+    original_string_->clear();
+  }
+  clear_has_original_string();
 }
-inline ::google::protobuf::int64 EventMessage::global_id() const {
-  return global_id_;
+inline const ::std::string& EventMessage::original_string() const {
+  return *original_string_;
 }
-inline void EventMessage::set_global_id(::google::protobuf::int64 value) {
-  set_has_global_id();
-  global_id_ = value;
+inline void EventMessage::set_original_string(const ::std::string& value) {
+  set_has_original_string();
+  if (original_string_ == &::google::protobuf::internal::kEmptyString) {
+    original_string_ = new ::std::string;
+  }
+  original_string_->assign(value);
+}
+inline void EventMessage::set_original_string(const char* value) {
+  set_has_original_string();
+  if (original_string_ == &::google::protobuf::internal::kEmptyString) {
+    original_string_ = new ::std::string;
+  }
+  original_string_->assign(value);
+}
+inline void EventMessage::set_original_string(const char* value, size_t size) {
+  set_has_original_string();
+  if (original_string_ == &::google::protobuf::internal::kEmptyString) {
+    original_string_ = new ::std::string;
+  }
+  original_string_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* EventMessage::mutable_original_string() {
+  set_has_original_string();
+  if (original_string_ == &::google::protobuf::internal::kEmptyString) {
+    original_string_ = new ::std::string;
+  }
+  return original_string_;
+}
+inline ::std::string* EventMessage::release_original_string() {
+  clear_has_original_string();
+  if (original_string_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = original_string_;
+    original_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void EventMessage::set_allocated_original_string(::std::string* original_string) {
+  if (original_string_ != &::google::protobuf::internal::kEmptyString) {
+    delete original_string_;
+  }
+  if (original_string) {
+    set_has_original_string();
+    original_string_ = original_string;
+  } else {
+    clear_has_original_string();
+    original_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
-// required string originalString = 4;
-inline bool EventMessage::has_originalstring() const {
+// required string replacement_string = 4;
+inline bool EventMessage::has_replacement_string() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void EventMessage::set_has_originalstring() {
+inline void EventMessage::set_has_replacement_string() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void EventMessage::clear_has_originalstring() {
+inline void EventMessage::clear_has_replacement_string() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void EventMessage::clear_originalstring() {
-  if (originalstring_ != &::google::protobuf::internal::kEmptyString) {
-    originalstring_->clear();
+inline void EventMessage::clear_replacement_string() {
+  if (replacement_string_ != &::google::protobuf::internal::kEmptyString) {
+    replacement_string_->clear();
   }
-  clear_has_originalstring();
+  clear_has_replacement_string();
 }
-inline const ::std::string& EventMessage::originalstring() const {
-  return *originalstring_;
+inline const ::std::string& EventMessage::replacement_string() const {
+  return *replacement_string_;
 }
-inline void EventMessage::set_originalstring(const ::std::string& value) {
-  set_has_originalstring();
-  if (originalstring_ == &::google::protobuf::internal::kEmptyString) {
-    originalstring_ = new ::std::string;
+inline void EventMessage::set_replacement_string(const ::std::string& value) {
+  set_has_replacement_string();
+  if (replacement_string_ == &::google::protobuf::internal::kEmptyString) {
+    replacement_string_ = new ::std::string;
   }
-  originalstring_->assign(value);
+  replacement_string_->assign(value);
 }
-inline void EventMessage::set_originalstring(const char* value) {
-  set_has_originalstring();
-  if (originalstring_ == &::google::protobuf::internal::kEmptyString) {
-    originalstring_ = new ::std::string;
+inline void EventMessage::set_replacement_string(const char* value) {
+  set_has_replacement_string();
+  if (replacement_string_ == &::google::protobuf::internal::kEmptyString) {
+    replacement_string_ = new ::std::string;
   }
-  originalstring_->assign(value);
+  replacement_string_->assign(value);
 }
-inline void EventMessage::set_originalstring(const char* value, size_t size) {
-  set_has_originalstring();
-  if (originalstring_ == &::google::protobuf::internal::kEmptyString) {
-    originalstring_ = new ::std::string;
+inline void EventMessage::set_replacement_string(const char* value, size_t size) {
+  set_has_replacement_string();
+  if (replacement_string_ == &::google::protobuf::internal::kEmptyString) {
+    replacement_string_ = new ::std::string;
   }
-  originalstring_->assign(reinterpret_cast<const char*>(value), size);
+  replacement_string_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* EventMessage::mutable_originalstring() {
-  set_has_originalstring();
-  if (originalstring_ == &::google::protobuf::internal::kEmptyString) {
-    originalstring_ = new ::std::string;
+inline ::std::string* EventMessage::mutable_replacement_string() {
+  set_has_replacement_string();
+  if (replacement_string_ == &::google::protobuf::internal::kEmptyString) {
+    replacement_string_ = new ::std::string;
   }
-  return originalstring_;
+  return replacement_string_;
 }
-inline ::std::string* EventMessage::release_originalstring() {
-  clear_has_originalstring();
-  if (originalstring_ == &::google::protobuf::internal::kEmptyString) {
+inline ::std::string* EventMessage::release_replacement_string() {
+  clear_has_replacement_string();
+  if (replacement_string_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
   } else {
-    ::std::string* temp = originalstring_;
-    originalstring_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    ::std::string* temp = replacement_string_;
+    replacement_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
     return temp;
   }
 }
-inline void EventMessage::set_allocated_originalstring(::std::string* originalstring) {
-  if (originalstring_ != &::google::protobuf::internal::kEmptyString) {
-    delete originalstring_;
+inline void EventMessage::set_allocated_replacement_string(::std::string* replacement_string) {
+  if (replacement_string_ != &::google::protobuf::internal::kEmptyString) {
+    delete replacement_string_;
   }
-  if (originalstring) {
-    set_has_originalstring();
-    originalstring_ = originalstring;
+  if (replacement_string) {
+    set_has_replacement_string();
+    replacement_string_ = replacement_string;
   } else {
-    clear_has_originalstring();
-    originalstring_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    clear_has_replacement_string();
+    replacement_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
-// required string replacementString = 5;
-inline bool EventMessage::has_replacementstring() const {
+// required .WeWrite.NSRange range = 5;
+inline bool EventMessage::has_range() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void EventMessage::set_has_replacementstring() {
+inline void EventMessage::set_has_range() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void EventMessage::clear_has_replacementstring() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void EventMessage::clear_replacementstring() {
-  if (replacementstring_ != &::google::protobuf::internal::kEmptyString) {
-    replacementstring_->clear();
-  }
-  clear_has_replacementstring();
-}
-inline const ::std::string& EventMessage::replacementstring() const {
-  return *replacementstring_;
-}
-inline void EventMessage::set_replacementstring(const ::std::string& value) {
-  set_has_replacementstring();
-  if (replacementstring_ == &::google::protobuf::internal::kEmptyString) {
-    replacementstring_ = new ::std::string;
-  }
-  replacementstring_->assign(value);
-}
-inline void EventMessage::set_replacementstring(const char* value) {
-  set_has_replacementstring();
-  if (replacementstring_ == &::google::protobuf::internal::kEmptyString) {
-    replacementstring_ = new ::std::string;
-  }
-  replacementstring_->assign(value);
-}
-inline void EventMessage::set_replacementstring(const char* value, size_t size) {
-  set_has_replacementstring();
-  if (replacementstring_ == &::google::protobuf::internal::kEmptyString) {
-    replacementstring_ = new ::std::string;
-  }
-  replacementstring_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* EventMessage::mutable_replacementstring() {
-  set_has_replacementstring();
-  if (replacementstring_ == &::google::protobuf::internal::kEmptyString) {
-    replacementstring_ = new ::std::string;
-  }
-  return replacementstring_;
-}
-inline ::std::string* EventMessage::release_replacementstring() {
-  clear_has_replacementstring();
-  if (replacementstring_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = replacementstring_;
-    replacementstring_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void EventMessage::set_allocated_replacementstring(::std::string* replacementstring) {
-  if (replacementstring_ != &::google::protobuf::internal::kEmptyString) {
-    delete replacementstring_;
-  }
-  if (replacementstring) {
-    set_has_replacementstring();
-    replacementstring_ = replacementstring;
-  } else {
-    clear_has_replacementstring();
-    replacementstring_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
-}
-
-// required .WeWrite.NSRange range = 6;
-inline bool EventMessage::has_range() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void EventMessage::set_has_range() {
-  _has_bits_[0] |= 0x00000020u;
-}
 inline void EventMessage::clear_has_range() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void EventMessage::clear_range() {
   if (range_ != NULL) range_->::WeWrite::NSRange::Clear();

@@ -11,16 +11,18 @@
 #import "CITListSessionsTableViewController.h"
 #import "Operation.h"
 #import "EventTranslator.h"
+#import "OperationManager.h"
 
 @interface CITViewController () < CollabrifyClientDelegate, CITListSessionsTableViewControllerDelegate, UITextFieldDelegate >
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createSessionButton;
 @property (weak, nonatomic) IBOutlet UIButton *leaveSessionButton;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UITextView *textEditor;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *joinSessionButton;
 
 @property (strong, nonatomic) CollabrifyClient *client;
 @property (strong, nonatomic) NSArray *tags; //of NSString
+@property (strong, nonatomic) OperationManager *opManager;
 @property (weak, nonatomic) IBOutlet UILabel *connectionLabel;
 @property (weak, nonatomic) IBOutlet UITextField *broadcastTextField;
 @property (weak, nonatomic) IBOutlet UILabel *sessionNameLabel;
@@ -30,29 +32,83 @@
 @property (strong, nonatomic) NSTimer *batchCastTimer;
 @property (assign, nonatomic) NSInteger counter;
 
+@property (weak, nonatomic) IBOutlet UIButton *redoButton;
+@property (weak, nonatomic) IBOutlet UIButton *undoButton;
+
 @end
 
 @implementation CITViewController
 
+- (IBAction)undo:(UIButton *)sender {
+    NSLog(@"Undo");
+    /* confirmed stack is not empty */
+    if(![[[OperationManager getOperationManager] unconfirmedOp] isEmpty]) {
+        Operation* op = [[[OperationManager getOperationManager] unconfirmedOp]popbot];
+        [self undoOperation:op];
+    } else {
+        
+    }
+}
+
+- (void) undoOperation: (Operation* ) op {
+    NSRange undorange;
+    undorange.location = op.range.location;
+    undorange.length = op.replacementString.length;
+    self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:op.originalString];
+    [[[OperationManager getOperationManager] redoStack] push_back:op];
+    /* TODO: send this */
+}
+
+- (IBAction)redo:(UIButton *)sender {
+    NSLog(@"Redo");
+    if([[[OperationManager getOperationManager] redoStack] isEmpty])
+        return;
+    Operation* op = [[[OperationManager getOperationManager] redoStack] popbot];
+    [self redoOperation:op];
+}
+
+- (void) redoOperation: (Operation* ) op {
+    self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:op.range withString:op.replacementString];
+    [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
+    /* TODO: send */
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [[event allTouches] anyObject];
-    if ([[self textView] isFirstResponder] && [touch view] != [self textView]) {
-        [[self textView] resignFirstResponder];
+    if ([[self textEditor] isFirstResponder] && [touch view] != [self textEditor]) {
+        [[self textEditor] resignFirstResponder];
     }
     [super touchesBegan:touches withEvent:event];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    NSLog(@"text: %@", text);
-    NSLog(@"range length: %d", range.length);
-    NSLog(@"range loc: %d", range.location);
-    NSLog(@"textView text: %@", textView.text);
+    /* init */
+    Operation *op = [[Operation alloc] initLocal];
+    
+    /* add information */
+    [op setParticipantID: self.client.participantID];
+    [op setOriginalString:[textView.text substringWithRange:range]];
+    [op setReplacementString: text];
+    [op setRange:range];
+    [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
+    [[[OperationManager getOperationManager] redoStack] clear];
+    [self broadcastOperation:op];
+    
+    /* print out */
+    if (text.length == 0){
+        NSLog(@"Delete: %@", [textView.text substringWithRange:range]);
+    }
+    else if (range.length == 0){
+        NSLog(@"Insert: %@", text);
+    }
+    else{
+        NSLog(@"replace %@ by %@",[textView.text substringWithRange:range],text);
+    }
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *) textEditor {
+- (void)textViewDidChange:(UITextView *) textView {
     
 }
 
@@ -134,9 +190,6 @@
 //    [[self resumeButton] setBackgroundColor:[UIColor clearColor]];
 }
 
-#pragma mark -
-#pragma mark Received Events
-
 /**
  * Implement this delegate method to receive events in your session
  *
@@ -145,14 +198,83 @@
 - (void)client:(CollabrifyClient *)client receivedEventWithOrderID:(int64_t)orderID submissionRegistrationID:(int32_t)submissionRegistrationID eventType:(NSString *)eventType data:(NSData *)data
 {
     /*
-    NSString *chatMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-         [[self statusLabel] setText:chatMessage];
-    });
+     NSString *chatMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+     
+     dispatch_async(dispatch_get_main_queue(), ^{
+     [[self statusLabel] setText:chatMessage];
+     });
      */
-    
-    
+    Operation *operation = [EventTranslator stringToOperation:data];
+    operation.globalID = orderID;
+    operation.submissionID = submissionRegistrationID;
+    [self handleReceivedOperation:operation];
+}
+
+- (void)handleReceivedOperation:(Operation *)operation
+{
+ //   if (operation.submissionID == -1) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
+            //Boolean delete = false;
+            //if (operation.range.length > operation.replacementString.length)
+            //    delete = true;
+            // remember the cursor location.
+            NSRange tempRange = self.textEditor.selectedRange;
+            NSString *temptext = [NSString stringWithFormat:@"%@", self.opManager.confirmedText];
+            NSLog(@"Before: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
+            [self.opManager setConfirmedText:[temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString]];
+            temptext = self.opManager.confirmedText;
+            NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
+            NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] top] localID]);
+            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1)
+                [self.opManager.unconfirmedOp poptop];
+            else {
+                for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
+                    Operation *tempOp = [[Operation alloc] init];
+                    tempOp = [self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i];
+                    NSRange trange = tempOp.range;
+                    if (operation.range.location < [tempOp range].location) {
+                        if ((int)[tempOp range].location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
+                            trange.location += (NSUInteger)operation.replacementString.length - (NSUInteger)operation.range.length;
+                        }
+                        else
+                            trange.location = 0;
+                        tempOp.range = trange;
+                        [self.opManager.unconfirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
+                    }
+                    if (operation.range.location < tempRange.location) {
+                        if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.location > 0) {
+                            tempRange.location +=operation.replacementString.length - operation.range.location;
+                        } else
+                            tempRange.location = 0;
+                    }
+                    temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
+                
+                }
+            
+                self.textEditor.text = temptext;
+            }
+            //[self.opManager setConfirmedText:[[self textEditor] text]];
+            [[self.opManager confirmedOp] push_back:operation];
+            
+            /*
+             // update cursor place.
+             int startIndex = tempRange.location;
+             int endIndex = tempRange.location + tempRange.length;
+             startIndex = [self updateIndex:startIndex
+             AfterOperation:operation
+             authorID:-1];
+             endIndex = [self updateIndex:endIndex
+             AfterOperation:operation
+             authorID:-1];
+             tempRange.location = startIndex;
+             tempRange.length = endIndex - startIndex;
+             */
+            //    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
+            // set the cursor location back.
+            self.textEditor.selectedRange = tempRange;
+        });
+  //  }
 }
 
 
@@ -430,10 +552,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self textView].layer.borderWidth = 5.0f;
-    [self textView].layer.borderColor = [[UIColor grayColor] CGColor];
+    [self textEditor].layer.borderWidth = 5.0f;
+    [self textEditor].layer.borderColor = [[UIColor grayColor] CGColor];
     [[self leaveSessionButton] setEnabled:YES];
-    [[self textView] setDelegate: (id<UITextViewDelegate>)self];
+    [[self textEditor] setDelegate: (id<UITextViewDelegate>)self];
+    self.opManager = [OperationManager getOperationManager];
 }
 
 - (void)dealloc

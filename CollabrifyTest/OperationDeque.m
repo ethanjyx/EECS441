@@ -33,15 +33,23 @@
 }
 
 -(id)top{
-    return [[deque firstObject] copy];
+    return [deque firstObject];
 }
 
 -(id)bottom{
-    return [[deque lastObject] copy];
+    return [deque lastObject];
 }
 
 -(BOOL)isEmpty{
     return deque.count == 0;
+}
+
+-(NSMutableArray*) getDequeObj {
+    return deque;
+}
+
+-(void) clear {
+    [deque removeAllObjects];
 }
 
 -(NSString *)description{

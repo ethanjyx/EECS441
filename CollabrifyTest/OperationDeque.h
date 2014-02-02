@@ -9,5 +9,6 @@
 -(id)bottom;
 -(id)popbot;
 -(BOOL)isEmpty;
-
+-(NSMutableArray*) getDequeObj;
+-(void) clear;
 @end
