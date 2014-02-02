@@ -13,4 +13,5 @@ message EventMessage
     required string original_string = 3;
     required string replacement_string = 4;
     required NSRange range = 5;
+    required int64 cursormove = 6;
 }
