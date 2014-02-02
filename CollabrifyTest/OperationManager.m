@@ -11,6 +11,7 @@
 @implementation OperationManager
 
 static OperationManager* manager;
+static bool hold = false;
 
 @synthesize confirmedOp = _confirmedOp;
 @synthesize unconfirmedOp = _unconfirmedOp;

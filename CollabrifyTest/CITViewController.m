@@ -71,8 +71,19 @@
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *) textView {
+- (void)textViewDidChangeSelection:(UITextView *) textView {
+    NSRange r = textView.selectedRange;
+    /* init */
+    Operation *op = [[Operation alloc] initLocal];
     
+    /* add information */
+    [op setParticipantID: self.client.participantID];
+    [op setOriginalString: @""];
+    [op setReplacementString: @""];
+    [op setRange:r];
+    [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
+    [self broadcastOperation:op];
+    NSLog(@"Start from : %d",r.location); //starting selection in text selection
 }
 
 - (void)updatePauseButton
@@ -175,7 +186,8 @@
 
 - (void)handleReceivedOperation:(Operation *)operation
 {
- //   if (operation.submissionID == -1) {
+    
+    
         dispatch_sync(dispatch_get_main_queue(), ^{
             NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
             //Boolean delete = false;
@@ -205,17 +217,19 @@
                         tempOp.range = trange;
                         [self.opManager.unconfirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
                     }
-                    if (operation.range.location < tempRange.location) {
-                        if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.location > 0) {
-                            tempRange.location +=operation.replacementString.length - operation.range.location;
-                        } else
-                            tempRange.location = 0;
-                    }
+                    
                     temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
+                    NSLog(@"Unconfirm %d %@", i, temptext);
                 
                 }
             
                 self.textEditor.text = temptext;
+            }
+            if (operation.range.location < tempRange.location) {
+                if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
+                    tempRange.location +=operation.replacementString.length - operation.range.length;
+                } else
+                    tempRange.location = 0;
             }
             //[self.opManager setConfirmedText:[[self textEditor] text]];
             [[self.opManager confirmedOp] push_back:operation];
