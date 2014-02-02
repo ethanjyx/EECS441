@@ -188,33 +188,36 @@
             [self.opManager setConfirmedText:[temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString]];
             temptext = self.opManager.confirmedText;
             NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
-            NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] bottom] localID]);
-            if (operation.localID == [self.opManager.unconfirmedOp.bottom localID] && operation.submissionID != -1)
-                [self.opManager.unconfirmedOp popbot];
-            for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
-                Operation *tempOp = [[self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i] copy];
-                NSRange trange = tempOp.range;
-                if (operation.range.location < [tempOp range].location) {
-                    if ((int)[tempOp range].location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
-                        trange.location += (NSUInteger)operation.replacementString.length - (NSUInteger)operation.range.length;
+            NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] top] localID]);
+            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1)
+                [self.opManager.unconfirmedOp poptop];
+            else {
+                for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
+                    Operation *tempOp = [[Operation alloc] init];
+                    tempOp = [self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i];
+                    NSRange trange = tempOp.range;
+                    if (operation.range.location < [tempOp range].location) {
+                        if ((int)[tempOp range].location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
+                            trange.location += (NSUInteger)operation.replacementString.length - (NSUInteger)operation.range.length;
+                        }
+                        else
+                            trange.location = 0;
+                        tempOp.range = trange;
+                        [self.opManager.unconfirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
                     }
-                    else
-                        trange.location = 0;
-                    tempOp.range = trange;
-                    [self.opManager.unconfirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
+                    if (operation.range.location < tempRange.location) {
+                        if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.location > 0) {
+                            tempRange.location +=operation.replacementString.length - operation.range.location;
+                        } else
+                            tempRange.location = 0;
+                    }
+                    temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
+                
                 }
-                if (operation.range.location < tempRange.location) {
-                    if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.location > 0) {
-                        tempRange.location +=operation.replacementString.length - operation.range.location;
-                    } else
-                        tempRange.location = 0;
-                }
-                temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
-
-            }
             
-            self.textEditor.text = temptext;
-            [self.opManager setConfirmedText:[[self textEditor] text]];
+                self.textEditor.text = temptext;
+            }
+            //[self.opManager setConfirmedText:[[self textEditor] text]];
             [[self.opManager confirmedOp] push_back:operation];
             
             /*
