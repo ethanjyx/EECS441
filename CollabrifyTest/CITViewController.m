@@ -32,10 +32,26 @@
 @property (strong, nonatomic) NSTimer *batchCastTimer;
 @property (assign, nonatomic) NSInteger counter;
 
+@property (weak, nonatomic) IBOutlet UIButton *redoButton;
+@property (weak, nonatomic) IBOutlet UIButton *undoButton;
+
 @end
 
 @implementation CITViewController
 
+- (IBAction)undo:(UIButton *)sender {
+    NSLog(@"Undo");
+    if(![[[OperationManager getOperationManager] unconfirmedOp] isEmpty]) {
+        Operation *op = [[[OperationManager getOperationManager] unconfirmedOp]popbot];
+        
+    } else {
+        
+    }
+}
+
+- (IBAction)redo:(UIButton *)sender {
+    NSLog(@"Redo");
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
