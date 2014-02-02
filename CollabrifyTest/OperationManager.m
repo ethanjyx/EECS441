@@ -10,8 +10,42 @@
 
 @implementation OperationManager
 
+static OperationManager* manager;
+
 @synthesize confirmedOp = _confirmedOp;
 @synthesize unconfirmedOp = _unconfirmedOp;
 @synthesize redoStack = _redoStack;
+
++ (OperationManager*) getOperationManager
+{
+    if (manager == nil){
+        manager = [[OperationManager alloc] init];
+    }
+    return manager;
+}
+
+- (Deque*) confirmedOp;
+{
+    if (_confirmedOp == nil) {
+        _confirmedOp = [[Deque alloc] init];
+    }
+    return _confirmedOp;
+}
+
+- (Deque*) unconfirmedOp;
+{
+    if (_unconfirmedOp == nil) {
+        _unconfirmedOp = [[Deque alloc] init];
+    }
+    return _unconfirmedOp;
+}
+
+- (Deque*) redoStack;
+{
+    if (_redoStack == nil) {
+        _redoStack = [[Deque alloc] init];
+    }
+    return _redoStack;
+}
 
 @end
