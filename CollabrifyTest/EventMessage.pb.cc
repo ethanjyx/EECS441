@@ -53,12 +53,11 @@ void protobuf_AssignDesc_EventMessage_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(NSRange));
   EventMessage_descriptor_ = file->message_type(1);
-  static const int EventMessage_offsets_[6] = {
+  static const int EventMessage_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, participant_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, local_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, global_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, originalstring_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, replacementstring_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, original_string_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, replacement_string_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, range_),
   };
   EventMessage_reflection_ =
@@ -107,11 +106,11 @@ void protobuf_AddDesc_EventMessage_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\022EventMessage.proto\022\007WeWrite\"+\n\007NSRange"
-    "\022\020\n\010location\030\001 \002(\003\022\016\n\006length\030\002 \002(\003\"\237\001\n\014E"
+    "\022\020\n\010location\030\001 \002(\003\022\016\n\006length\030\002 \002(\003\"\216\001\n\014E"
     "ventMessage\022\026\n\016participant_id\030\001 \002(\003\022\020\n\010l"
-    "ocal_id\030\002 \002(\003\022\021\n\tglobal_id\030\003 \002(\003\022\026\n\016orig"
-    "inalString\030\004 \002(\t\022\031\n\021replacementString\030\005 "
-    "\002(\t\022\037\n\005range\030\006 \002(\0132\020.WeWrite.NSRange", 236);
+    "ocal_id\030\002 \002(\003\022\027\n\017original_string\030\003 \002(\t\022\032"
+    "\n\022replacement_string\030\004 \002(\t\022\037\n\005range\030\005 \002("
+    "\0132\020.WeWrite.NSRange", 219);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "EventMessage.proto", &protobuf_RegisterTypes);
   NSRange::default_instance_ = new NSRange();
@@ -382,7 +381,6 @@ void NSRange::Swap(NSRange* other) {
 #ifndef _MSC_VER
 const int EventMessage::kParticipantIdFieldNumber;
 const int EventMessage::kLocalIdFieldNumber;
-const int EventMessage::kGlobalIdFieldNumber;
 const int EventMessage::kOriginalStringFieldNumber;
 const int EventMessage::kReplacementStringFieldNumber;
 const int EventMessage::kRangeFieldNumber;
@@ -407,9 +405,8 @@ void EventMessage::SharedCtor() {
   _cached_size_ = 0;
   participant_id_ = GOOGLE_LONGLONG(0);
   local_id_ = GOOGLE_LONGLONG(0);
-  global_id_ = GOOGLE_LONGLONG(0);
-  originalstring_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  replacementstring_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  original_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  replacement_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   range_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -419,11 +416,11 @@ EventMessage::~EventMessage() {
 }
 
 void EventMessage::SharedDtor() {
-  if (originalstring_ != &::google::protobuf::internal::kEmptyString) {
-    delete originalstring_;
+  if (original_string_ != &::google::protobuf::internal::kEmptyString) {
+    delete original_string_;
   }
-  if (replacementstring_ != &::google::protobuf::internal::kEmptyString) {
-    delete replacementstring_;
+  if (replacement_string_ != &::google::protobuf::internal::kEmptyString) {
+    delete replacement_string_;
   }
   if (this != default_instance_) {
     delete range_;
@@ -455,15 +452,14 @@ void EventMessage::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     participant_id_ = GOOGLE_LONGLONG(0);
     local_id_ = GOOGLE_LONGLONG(0);
-    global_id_ = GOOGLE_LONGLONG(0);
-    if (has_originalstring()) {
-      if (originalstring_ != &::google::protobuf::internal::kEmptyString) {
-        originalstring_->clear();
+    if (has_original_string()) {
+      if (original_string_ != &::google::protobuf::internal::kEmptyString) {
+        original_string_->clear();
       }
     }
-    if (has_replacementstring()) {
-      if (replacementstring_ != &::google::protobuf::internal::kEmptyString) {
-        replacementstring_->clear();
+    if (has_replacement_string()) {
+      if (replacement_string_ != &::google::protobuf::internal::kEmptyString) {
+        replacement_string_->clear();
       }
     }
     if (has_range()) {
@@ -507,62 +503,46 @@ bool EventMessage::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(24)) goto parse_global_id;
+        if (input->ExpectTag(26)) goto parse_original_string;
         break;
       }
 
-      // required int64 global_id = 3;
+      // required string original_string = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_global_id:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &global_id_)));
-          set_has_global_id();
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_original_string:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_original_string()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->original_string().data(), this->original_string().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(34)) goto parse_originalString;
+        if (input->ExpectTag(34)) goto parse_replacement_string;
         break;
       }
 
-      // required string originalString = 4;
+      // required string replacement_string = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_originalString:
+         parse_replacement_string:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_originalstring()));
+                input, this->mutable_replacement_string()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->originalstring().data(), this->originalstring().length(),
+            this->replacement_string().data(), this->replacement_string().length(),
             ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(42)) goto parse_replacementString;
+        if (input->ExpectTag(42)) goto parse_range;
         break;
       }
 
-      // required string replacementString = 5;
+      // required .WeWrite.NSRange range = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_replacementString:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_replacementstring()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->replacementstring().data(), this->replacementstring().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(50)) goto parse_range;
-        break;
-      }
-
-      // required .WeWrite.NSRange range = 6;
-      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_range:
@@ -603,33 +583,28 @@ void EventMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->local_id(), output);
   }
 
-  // required int64 global_id = 3;
-  if (has_global_id()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->global_id(), output);
-  }
-
-  // required string originalString = 4;
-  if (has_originalstring()) {
+  // required string original_string = 3;
+  if (has_original_string()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->originalstring().data(), this->originalstring().length(),
+      this->original_string().data(), this->original_string().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      4, this->originalstring(), output);
+      3, this->original_string(), output);
   }
 
-  // required string replacementString = 5;
-  if (has_replacementstring()) {
+  // required string replacement_string = 4;
+  if (has_replacement_string()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->replacementstring().data(), this->replacementstring().length(),
+      this->replacement_string().data(), this->replacement_string().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      5, this->replacementstring(), output);
+      4, this->replacement_string(), output);
   }
 
-  // required .WeWrite.NSRange range = 6;
+  // required .WeWrite.NSRange range = 5;
   if (has_range()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->range(), output);
+      5, this->range(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -650,36 +625,31 @@ void EventMessage::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->local_id(), target);
   }
 
-  // required int64 global_id = 3;
-  if (has_global_id()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->global_id(), target);
-  }
-
-  // required string originalString = 4;
-  if (has_originalstring()) {
+  // required string original_string = 3;
+  if (has_original_string()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->originalstring().data(), this->originalstring().length(),
+      this->original_string().data(), this->original_string().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->originalstring(), target);
+        3, this->original_string(), target);
   }
 
-  // required string replacementString = 5;
-  if (has_replacementstring()) {
+  // required string replacement_string = 4;
+  if (has_replacement_string()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->replacementstring().data(), this->replacementstring().length(),
+      this->replacement_string().data(), this->replacement_string().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->replacementstring(), target);
+        4, this->replacement_string(), target);
   }
 
-  // required .WeWrite.NSRange range = 6;
+  // required .WeWrite.NSRange range = 5;
   if (has_range()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        6, this->range(), target);
+        5, this->range(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -707,28 +677,21 @@ int EventMessage::ByteSize() const {
           this->local_id());
     }
 
-    // required int64 global_id = 3;
-    if (has_global_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->global_id());
-    }
-
-    // required string originalString = 4;
-    if (has_originalstring()) {
+    // required string original_string = 3;
+    if (has_original_string()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->originalstring());
+          this->original_string());
     }
 
-    // required string replacementString = 5;
-    if (has_replacementstring()) {
+    // required string replacement_string = 4;
+    if (has_replacement_string()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->replacementstring());
+          this->replacement_string());
     }
 
-    // required .WeWrite.NSRange range = 6;
+    // required .WeWrite.NSRange range = 5;
     if (has_range()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -768,14 +731,11 @@ void EventMessage::MergeFrom(const EventMessage& from) {
     if (from.has_local_id()) {
       set_local_id(from.local_id());
     }
-    if (from.has_global_id()) {
-      set_global_id(from.global_id());
+    if (from.has_original_string()) {
+      set_original_string(from.original_string());
     }
-    if (from.has_originalstring()) {
-      set_originalstring(from.originalstring());
-    }
-    if (from.has_replacementstring()) {
-      set_replacementstring(from.replacementstring());
+    if (from.has_replacement_string()) {
+      set_replacement_string(from.replacement_string());
     }
     if (from.has_range()) {
       mutable_range()->::WeWrite::NSRange::MergeFrom(from.range());
@@ -797,7 +757,7 @@ void EventMessage::CopyFrom(const EventMessage& from) {
 }
 
 bool EventMessage::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
 
   if (has_range()) {
     if (!this->range().IsInitialized()) return false;
@@ -809,9 +769,8 @@ void EventMessage::Swap(EventMessage* other) {
   if (other != this) {
     std::swap(participant_id_, other->participant_id_);
     std::swap(local_id_, other->local_id_);
-    std::swap(global_id_, other->global_id_);
-    std::swap(originalstring_, other->originalstring_);
-    std::swap(replacementstring_, other->replacementstring_);
+    std::swap(original_string_, other->original_string_);
+    std::swap(replacement_string_, other->replacement_string_);
     std::swap(range_, other->range_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

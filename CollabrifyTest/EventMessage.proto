@@ -9,9 +9,8 @@ message EventMessage
 {
     required int64 participant_id = 1;
     required int64 local_id = 2;
-    required int64 global_id = 3;
 
-    required string originalString = 4;
-    required string replacementString = 5;
-    required NSRange range = 6;
+    required string original_string = 3;
+    required string replacement_string = 4;
+    required NSRange range = 5;
 }

@@ -148,9 +148,6 @@
 //    [[self resumeButton] setBackgroundColor:[UIColor clearColor]];
 }
 
-#pragma mark -
-#pragma mark Received Events
-
 /**
  * Implement this delegate method to receive events in your session
  *
@@ -159,13 +156,20 @@
 - (void)client:(CollabrifyClient *)client receivedEventWithOrderID:(int64_t)orderID submissionRegistrationID:(int32_t)submissionRegistrationID eventType:(NSString *)eventType data:(NSData *)data
 {
     /*
-    NSString *chatMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-         [[self statusLabel] setText:chatMessage];
-    });
+     NSString *chatMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+     
+     dispatch_async(dispatch_get_main_queue(), ^{
+     [[self statusLabel] setText:chatMessage];
+     });
      */
-    
+    Operation *operation = [EventTranslator stringToOperation:data];
+    operation.globalID = orderID;
+    operation.submissionID = submissionRegistrationID;
+    [self handleReceivedOperation:operation];
+}
+
+- (void)handleReceivedOperation:(Operation *)operation
+{
     
 }
 

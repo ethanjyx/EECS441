@@ -17,11 +17,10 @@
     
     message.set_participant_id([operation participantID]);
     message.set_local_id([operation localID]);
-    message.set_global_id([operation globalID]);
     std::string c_str = [operation.originalString cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    message.set_originalstring(c_str);
+    message.set_original_string(c_str);
     c_str = [operation.replacementString cStringUsingEncoding:[NSString defaultCStringEncoding]];
-    message.set_replacementstring(c_str);
+    message.set_replacement_string(c_str);
     WeWrite:: NSRange *range = new WeWrite::NSRange();
     range->set_length(operation.range.length);
     range->set_location(operation.range.location);
@@ -39,9 +38,22 @@
     
     return textData;
 }
-/*
+
 + (Operation *) stringToOperation: (NSData *) textData
 {
-    Operation *operation = [[Operation alloc] initGlobal]
-}*/
+    WeWrite::EventMessage message;
+    message.ParseFromArray([textData bytes], [textData length]);
+    
+    Operation *operation = [[Operation alloc] initGlobal];
+    operation.participantID = message.participant_id();
+    operation.localID = message.local_id();
+    operation.originalString = [NSString stringWithCString:message.original_string().c_str() encoding:[NSString defaultCStringEncoding]];
+    operation.replacementString = [NSString stringWithCString:message.replacement_string().c_str() encoding:[NSString defaultCStringEncoding]];
+    NSRange range;
+    range.length = (long)message.range().length();
+    range.location = (unsigned int)message.range().location();
+    operation.range = range;
+    
+    return operation;
+}
 @end
