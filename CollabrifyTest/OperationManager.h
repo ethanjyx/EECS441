@@ -23,6 +23,7 @@
 // The stack that can redo.
 @property (strong, nonatomic) Deque *redoStack;
 
-
+// Text after confirmed operations.
+@property (strong, nonatomic) NSString *confirmedText;
 
 @end
