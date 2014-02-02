@@ -45,10 +45,24 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    NSLog(@"text: %@", text);
-    NSLog(@"range length: %d", range.length);
-    NSLog(@"range loc: %d", range.location);
-    NSLog(@"textView text: %@", textView.text);
+    /* init */
+    Operation *op = [[Operation alloc] initLocal];
+    
+    /* add information */
+    [op setParticipantID: self.client.participantID];
+    [op setOriginalString:[textView.text substringWithRange:range]];
+    [op setReplacementString: text];
+    
+    /* print out */
+    if (text.length == 0){
+        NSLog(@"Delete: %@", [textView.text substringWithRange:range]);
+    }
+    else if (range.length == 0){
+        NSLog(@"Insert: %@", text);
+    }
+    else{
+        NSLog(@"replace %@ by %@",[textView.text substringWithRange:range],text);
+    }
     return YES;
 }
 
