@@ -32,10 +32,46 @@
 @property (strong, nonatomic) NSTimer *batchCastTimer;
 @property (assign, nonatomic) NSInteger counter;
 
+@property (weak, nonatomic) IBOutlet UIButton *redoButton;
+@property (weak, nonatomic) IBOutlet UIButton *undoButton;
+
 @end
 
 @implementation CITViewController
 
+- (IBAction)undo:(UIButton *)sender {
+    NSLog(@"Undo");
+    /* confirmed stack is not empty */
+    if(![[[OperationManager getOperationManager] unconfirmedOp] isEmpty]) {
+        Operation* op = [[[OperationManager getOperationManager] unconfirmedOp]popbot];
+        [self undoOperation:op];
+    } else {
+        
+    }
+}
+
+- (void) undoOperation: (Operation* ) op {
+    NSRange undorange;
+    undorange.location = op.range.location;
+    undorange.length = op.replacementString.length;
+    self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:op.originalString];
+    [[[OperationManager getOperationManager] redoStack] push_back:op];
+    /* TODO: send this */
+}
+
+- (IBAction)redo:(UIButton *)sender {
+    NSLog(@"Redo");
+    if([[[OperationManager getOperationManager] redoStack] isEmpty])
+        return;
+    Operation* op = [[[OperationManager getOperationManager] redoStack] popbot];
+    [self redoOperation:op];
+}
+
+- (void) redoOperation: (Operation* ) op {
+    self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:op.range withString:op.replacementString];
+    [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
+    /* TODO: send */
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
@@ -56,6 +92,7 @@
     [op setReplacementString: text];
     [op setRange:range];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
+    [[[OperationManager getOperationManager] redoStack] clear];
     [self broadcastOperation:op];
     
     /* print out */

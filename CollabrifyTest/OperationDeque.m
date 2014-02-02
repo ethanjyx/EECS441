@@ -48,6 +48,10 @@
     return deque;
 }
 
+-(void) clear {
+    [deque removeAllObjects];
+}
+
 -(NSString *)description{
     NSMutableString *result = [[NSMutableString alloc] initWithString:@"["];
     for (id s in deque) {
