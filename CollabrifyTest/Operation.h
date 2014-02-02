@@ -10,7 +10,7 @@
 
 @interface Operation : NSObject
 
-@property int participantID;
+@property int64_t participantID;
 @property int localID;
 @property int globalID;
 @property int submissionID;
