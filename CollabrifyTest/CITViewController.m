@@ -34,10 +34,16 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *redoButton;
 @property (weak, nonatomic) IBOutlet UIButton *undoButton;
+@property (assign) BOOL hold;
+//@property (strong, nonatomic) NSMutableDictionary *map;
+@property (assign) int cursor;
+@property (assign) int hiscursor;
 
 @end
 
 @implementation CITViewController
+
+static bool hold = false;
 
 - (IBAction)undo:(UIButton *)sender {
     NSLog(@"Undo");
@@ -109,11 +115,18 @@
 }
 
 - (void)textViewDidChangeSelection:(UITextView *) textView {
+    
+    /*
+    if (self.hold)
+        return;
+    
     NSRange r = textView.selectedRange;
+     */
     /* init */
-    Operation *op = [[Operation alloc] initLocal];
+//    Operation *op = [[Operation alloc] initLocal];
     
     /* add information */
+    /*
     [op setParticipantID: self.client.participantID];
     [op setOriginalString: @""];
     [op setReplacementString: @""];
@@ -121,6 +134,7 @@
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [self broadcastOperation:op];
     NSLog(@"Start from : %d",r.location); //starting selection in text selection
+     */
 }
 
 - (void)updatePauseButton
@@ -224,13 +238,24 @@
 - (void)handleReceivedOperation:(Operation *)operation
 {
     
-    
         dispatch_sync(dispatch_get_main_queue(), ^{
+            /*
+            if ([self.map objectForKey:(int)(operation.participantID)] == nil && operation.submissionID == -1) {
+                self.map[@(operation.participantID)] = 0;
+            }
+            */
             NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
             //Boolean delete = false;
             //if (operation.range.length > operation.replacementString.length)
             //    delete = true;
             // remember the cursor location.
+            /* ***
+            if (operation.submissionID == -1 && operation.replacementString.length == 0 && operation.originalString == 0) {
+                self.hiscursor = operation.range.location;
+                return;
+            }
+            self.hold = true;
+            */
             NSRange tempRange = self.textEditor.selectedRange;
             NSString *temptext = [NSString stringWithFormat:@"%@", self.opManager.confirmedText];
             NSLog(@"Before: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
@@ -261,6 +286,7 @@
                 }
             
                 self.textEditor.text = temptext;
+                
             }
             if (operation.range.location < tempRange.location) {
                 if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
@@ -271,22 +297,13 @@
             //[self.opManager setConfirmedText:[[self textEditor] text]];
             [[self.opManager confirmedOp] push_back:operation];
             
-            /*
-             // update cursor place.
-             int startIndex = tempRange.location;
-             int endIndex = tempRange.location + tempRange.length;
-             startIndex = [self updateIndex:startIndex
-             AfterOperation:operation
-             authorID:-1];
-             endIndex = [self updateIndex:endIndex
-             AfterOperation:operation
-             authorID:-1];
-             tempRange.location = startIndex;
-             tempRange.length = endIndex - startIndex;
-             */
-            //    self.textEditor.text = [OperationManager getOperationManager].confirmedText;
+            
             // set the cursor location back.
             self.textEditor.selectedRange = tempRange;
+            /*  ***
+            self.cursor = tempRange.location;
+            self.hold = false;
+             */
         });
   //  }
 }
@@ -571,6 +588,16 @@
     [[self leaveSessionButton] setEnabled:YES];
     [[self textEditor] setDelegate: (id<UITextViewDelegate>)self];
     self.opManager = [OperationManager getOperationManager];
+    self.hold = false;
+    self.cursor = 0;
+    self.hiscursor = 0;
+    //self.map = [[NSMutableDictionary alloc] init];
+    //[self.map setObject:[NSNumber numberWithFloat:1.23f]
+     //                  forKey:[NSNumber numberWithInt:1]];
+    //NSLog(@"Test dictionary: %@", testDictionary);
+    //[self.map release];
+    
+    //self.map[@-1] = 0;
 }
 
 - (void)dealloc

@@ -11,12 +11,13 @@
 @implementation OperationManager
 
 static OperationManager* manager;
-static bool hold = false;
+
 
 @synthesize confirmedOp = _confirmedOp;
 @synthesize unconfirmedOp = _unconfirmedOp;
 @synthesize redoStack = _redoStack;
 @synthesize confirmedText = _confirmedText;
+@synthesize map = _map;
 
 + (OperationManager*) getOperationManager
 {
@@ -48,6 +49,14 @@ static bool hold = false;
         _redoStack = [[Deque alloc] init];
     }
     return _redoStack;
+}
+
+- (NSMutableDictionary*) map;
+{
+    if (_map == nil) {
+        _map = [NSMutableDictionary dictionary];
+    }
+    return _map;
 }
 
 - (NSString*) confirmedText;{

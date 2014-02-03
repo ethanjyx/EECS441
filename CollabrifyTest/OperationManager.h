@@ -26,4 +26,6 @@
 // Text after confirmed operations.
 @property (strong, nonatomic) NSString *confirmedText;
 
+@property (strong, nonatomic) NSMutableDictionary *map;
+
 @end
