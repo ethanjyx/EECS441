@@ -53,13 +53,14 @@ void protobuf_AssignDesc_EventMessage_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(NSRange));
   EventMessage_descriptor_ = file->message_type(1);
-  static const int EventMessage_offsets_[6] = {
+  static const int EventMessage_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, participant_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, local_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, original_string_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, replacement_string_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, range_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, cursormove_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, confirmed_gid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EventMessage, is_undo_),
   };
   EventMessage_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -107,11 +108,12 @@ void protobuf_AddDesc_EventMessage_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\022EventMessage.proto\022\007WeWrite\"+\n\007NSRange"
-    "\022\020\n\010location\030\001 \002(\003\022\016\n\006length\030\002 \002(\003\"\242\001\n\014E"
+    "\022\020\n\010location\030\001 \002(\003\022\016\n\006length\030\002 \002(\003\"\266\001\n\014E"
     "ventMessage\022\026\n\016participant_id\030\001 \002(\003\022\020\n\010l"
     "ocal_id\030\002 \002(\003\022\027\n\017original_string\030\003 \002(\t\022\032"
     "\n\022replacement_string\030\004 \002(\t\022\037\n\005range\030\005 \002("
-    "\0132\020.WeWrite.NSRange\022\022\n\ncursormove\030\006 \002(\003", 239);
+    "\0132\020.WeWrite.NSRange\022\025\n\rconfirmed_gid\030\006 \002"
+    "(\003\022\017\n\007is_undo\030\007 \002(\010", 259);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "EventMessage.proto", &protobuf_RegisterTypes);
   NSRange::default_instance_ = new NSRange();
@@ -385,7 +387,8 @@ const int EventMessage::kLocalIdFieldNumber;
 const int EventMessage::kOriginalStringFieldNumber;
 const int EventMessage::kReplacementStringFieldNumber;
 const int EventMessage::kRangeFieldNumber;
-const int EventMessage::kCursormoveFieldNumber;
+const int EventMessage::kConfirmedGidFieldNumber;
+const int EventMessage::kIsUndoFieldNumber;
 #endif  // !_MSC_VER
 
 EventMessage::EventMessage()
@@ -410,7 +413,8 @@ void EventMessage::SharedCtor() {
   original_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   replacement_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   range_ = NULL;
-  cursormove_ = GOOGLE_LONGLONG(0);
+  confirmed_gid_ = GOOGLE_LONGLONG(0);
+  is_undo_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -468,7 +472,8 @@ void EventMessage::Clear() {
     if (has_range()) {
       if (range_ != NULL) range_->::WeWrite::NSRange::Clear();
     }
-    cursormove_ = GOOGLE_LONGLONG(0);
+    confirmed_gid_ = GOOGLE_LONGLONG(0);
+    is_undo_ = false;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -555,19 +560,35 @@ bool EventMessage::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(48)) goto parse_cursormove;
+        if (input->ExpectTag(48)) goto parse_confirmed_gid;
         break;
       }
 
-      // required int64 cursormove = 6;
+      // required int64 confirmed_gid = 6;
       case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_cursormove:
+         parse_confirmed_gid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &cursormove_)));
-          set_has_cursormove();
+                 input, &confirmed_gid_)));
+          set_has_confirmed_gid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_is_undo;
+        break;
+      }
+
+      // required bool is_undo = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_is_undo:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &is_undo_)));
+          set_has_is_undo();
         } else {
           goto handle_uninterpreted;
         }
@@ -627,9 +648,14 @@ void EventMessage::SerializeWithCachedSizes(
       5, this->range(), output);
   }
 
-  // required int64 cursormove = 6;
-  if (has_cursormove()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->cursormove(), output);
+  // required int64 confirmed_gid = 6;
+  if (has_confirmed_gid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(6, this->confirmed_gid(), output);
+  }
+
+  // required bool is_undo = 7;
+  if (has_is_undo()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->is_undo(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -677,9 +703,14 @@ void EventMessage::SerializeWithCachedSizes(
         5, this->range(), target);
   }
 
-  // required int64 cursormove = 6;
-  if (has_cursormove()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->cursormove(), target);
+  // required int64 confirmed_gid = 6;
+  if (has_confirmed_gid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(6, this->confirmed_gid(), target);
+  }
+
+  // required bool is_undo = 7;
+  if (has_is_undo()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->is_undo(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -728,11 +759,16 @@ int EventMessage::ByteSize() const {
           this->range());
     }
 
-    // required int64 cursormove = 6;
-    if (has_cursormove()) {
+    // required int64 confirmed_gid = 6;
+    if (has_confirmed_gid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int64Size(
-          this->cursormove());
+          this->confirmed_gid());
+    }
+
+    // required bool is_undo = 7;
+    if (has_is_undo()) {
+      total_size += 1 + 1;
     }
 
   }
@@ -777,8 +813,11 @@ void EventMessage::MergeFrom(const EventMessage& from) {
     if (from.has_range()) {
       mutable_range()->::WeWrite::NSRange::MergeFrom(from.range());
     }
-    if (from.has_cursormove()) {
-      set_cursormove(from.cursormove());
+    if (from.has_confirmed_gid()) {
+      set_confirmed_gid(from.confirmed_gid());
+    }
+    if (from.has_is_undo()) {
+      set_is_undo(from.is_undo());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -797,7 +836,7 @@ void EventMessage::CopyFrom(const EventMessage& from) {
 }
 
 bool EventMessage::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
 
   if (has_range()) {
     if (!this->range().IsInitialized()) return false;
@@ -812,7 +851,8 @@ void EventMessage::Swap(EventMessage* other) {
     std::swap(original_string_, other->original_string_);
     std::swap(replacement_string_, other->replacement_string_);
     std::swap(range_, other->range_);
-    std::swap(cursormove_, other->cursormove_);
+    std::swap(confirmed_gid_, other->confirmed_gid_);
+    std::swap(is_undo_, other->is_undo_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

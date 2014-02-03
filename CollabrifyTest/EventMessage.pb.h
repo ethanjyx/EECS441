@@ -231,12 +231,19 @@ class EventMessage : public ::google::protobuf::Message {
   inline ::WeWrite::NSRange* release_range();
   inline void set_allocated_range(::WeWrite::NSRange* range);
 
-  // required int64 cursormove = 6;
-  inline bool has_cursormove() const;
-  inline void clear_cursormove();
-  static const int kCursormoveFieldNumber = 6;
-  inline ::google::protobuf::int64 cursormove() const;
-  inline void set_cursormove(::google::protobuf::int64 value);
+  // required int64 confirmed_gid = 6;
+  inline bool has_confirmed_gid() const;
+  inline void clear_confirmed_gid();
+  static const int kConfirmedGidFieldNumber = 6;
+  inline ::google::protobuf::int64 confirmed_gid() const;
+  inline void set_confirmed_gid(::google::protobuf::int64 value);
+
+  // required bool is_undo = 7;
+  inline bool has_is_undo() const;
+  inline void clear_is_undo();
+  static const int kIsUndoFieldNumber = 7;
+  inline bool is_undo() const;
+  inline void set_is_undo(bool value);
 
   // @@protoc_insertion_point(class_scope:WeWrite.EventMessage)
  private:
@@ -250,8 +257,10 @@ class EventMessage : public ::google::protobuf::Message {
   inline void clear_has_replacement_string();
   inline void set_has_range();
   inline void clear_has_range();
-  inline void set_has_cursormove();
-  inline void clear_has_cursormove();
+  inline void set_has_confirmed_gid();
+  inline void clear_has_confirmed_gid();
+  inline void set_has_is_undo();
+  inline void clear_has_is_undo();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -260,10 +269,11 @@ class EventMessage : public ::google::protobuf::Message {
   ::std::string* original_string_;
   ::std::string* replacement_string_;
   ::WeWrite::NSRange* range_;
-  ::google::protobuf::int64 cursormove_;
+  ::google::protobuf::int64 confirmed_gid_;
+  bool is_undo_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
 
   friend void  protobuf_AddDesc_EventMessage_2eproto();
   friend void protobuf_AssignDesc_EventMessage_2eproto();
@@ -549,26 +559,48 @@ inline void EventMessage::set_allocated_range(::WeWrite::NSRange* range) {
   }
 }
 
-// required int64 cursormove = 6;
-inline bool EventMessage::has_cursormove() const {
+// required int64 confirmed_gid = 6;
+inline bool EventMessage::has_confirmed_gid() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void EventMessage::set_has_cursormove() {
+inline void EventMessage::set_has_confirmed_gid() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void EventMessage::clear_has_cursormove() {
+inline void EventMessage::clear_has_confirmed_gid() {
   _has_bits_[0] &= ~0x00000020u;
 }
-inline void EventMessage::clear_cursormove() {
-  cursormove_ = GOOGLE_LONGLONG(0);
-  clear_has_cursormove();
+inline void EventMessage::clear_confirmed_gid() {
+  confirmed_gid_ = GOOGLE_LONGLONG(0);
+  clear_has_confirmed_gid();
 }
-inline ::google::protobuf::int64 EventMessage::cursormove() const {
-  return cursormove_;
+inline ::google::protobuf::int64 EventMessage::confirmed_gid() const {
+  return confirmed_gid_;
 }
-inline void EventMessage::set_cursormove(::google::protobuf::int64 value) {
-  set_has_cursormove();
-  cursormove_ = value;
+inline void EventMessage::set_confirmed_gid(::google::protobuf::int64 value) {
+  set_has_confirmed_gid();
+  confirmed_gid_ = value;
+}
+
+// required bool is_undo = 7;
+inline bool EventMessage::has_is_undo() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void EventMessage::set_has_is_undo() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void EventMessage::clear_has_is_undo() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void EventMessage::clear_is_undo() {
+  is_undo_ = false;
+  clear_has_is_undo();
+}
+inline bool EventMessage::is_undo() const {
+  return is_undo_;
+}
+inline void EventMessage::set_is_undo(bool value) {
+  set_has_is_undo();
+  is_undo_ = value;
 }
 
 
