@@ -271,7 +271,7 @@ static bool hold = false;
             for (int i = operation.cursormove + 1; i < self.opManager.confirmedOp.size; i++) {
                 Operation *tempOp = [[Operation alloc] init];
                 tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
-                if (tempOp.participantID == operation.participantID && tempOp.range.location < newRange.location) {
+                if (tempOp.participantID != operation.participantID && tempOp.range.location < newRange.location) {
                     if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
                         newRange.location +=tempOp.replacementString.length - tempOp.range.length;
                     } else
@@ -287,8 +287,11 @@ static bool hold = false;
             
             NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
             NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] top] localID]);
-            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1)
+            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1) {
                 [self.opManager.unconfirmedOp poptop];
+                if (self.opManager.unconfirmedOp.size == 0)
+                    self.textEditor.text = self.opManager.confirmedText;
+            }
             else {
                 for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
                     Operation *tempOp = [[Operation alloc] init];
