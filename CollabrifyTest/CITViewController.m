@@ -270,12 +270,13 @@ static bool hold = false;
       
             for (int i = operation.cursormove + 1; i < self.opManager.confirmedOp.size; i++) {
                 Operation *tempOp = [[Operation alloc] init];
-                tempOp = [self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i];
+                tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
                 if (tempOp.submissionID == -1 && tempOp.range.location < newRange.location) {
                     if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
                         newRange.location +=tempOp.replacementString.length - tempOp.range.length;
                     } else
                         newRange.location = 0;
+                    NSLog(@"newRange: %d", newRange.location);
                 }
             }
             operation.range = newRange;
