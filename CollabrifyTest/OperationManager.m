@@ -43,6 +43,14 @@ static OperationManager* manager;
     return _unconfirmedOp;
 }
 
+- (Deque*) undoStack;
+{
+    if (_undoStack == nil) {
+        _undoStack = [[Deque alloc] init];
+    }
+    return _undoStack;
+}
+
 - (Deque*) redoStack;
 {
     if (_redoStack == nil) {
