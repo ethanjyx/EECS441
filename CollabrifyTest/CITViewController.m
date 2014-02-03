@@ -129,6 +129,10 @@ static bool hold = false;
     [op setOriginalString:[textView.text substringWithRange:range]];
     [op setReplacementString: text];
     [op setRange:range];
+    if (self.opManager.confirmedOp.size > 0)
+        [op setCursormove:[self.opManager.confirmedOp.bottom globalID]];
+    else
+        [op setCursormove:-1];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [[[OperationManager getOperationManager] redoStack] clear];
     [self broadcastOperation:op];
@@ -276,7 +280,7 @@ static bool hold = false;
                 self.map[@(operation.participantID)] = 0;
             }
             */
-            NSLog(@"replace range:%u,%u with %@",operation.range.location, operation.range.length,operation.replacementString);
+            NSLog(@"replace range:%u,%u with %@. ConfirmID: %d, GlobalID: %d",operation.range.location, operation.range.length,operation.replacementString, operation.cursormove, operation.globalID);
             //Boolean delete = false;
             //if (operation.range.length > operation.replacementString.length)
             //    delete = true;
@@ -289,20 +293,44 @@ static bool hold = false;
             self.hold = true;
             */
             NSRange tempRange = self.textEditor.selectedRange;
+            
             NSString *temptext = [NSString stringWithFormat:@"%@", self.opManager.confirmedText];
+            
+            NSRange newRange = operation.range;
+            
             NSLog(@"Before: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
+      
+            for (int i = operation.cursormove + 1; i < self.opManager.confirmedOp.size; i++) {
+                Operation *tempOp = [[Operation alloc] init];
+                tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
+                if (tempOp.participantID != operation.participantID && tempOp.range.location < newRange.location) {
+                    if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
+                        newRange.location +=tempOp.replacementString.length - tempOp.range.length;
+                    } else
+                        newRange.location = 0;
+                    NSLog(@"newRange: %d", newRange.location);
+                }
+            }
+            operation.range = newRange;
+       
             [self.opManager setConfirmedText:[temptext stringByReplacingCharactersInRange:operation.range withString:operation.replacementString]];
             temptext = self.opManager.confirmedText;
+            
+            
             NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
             NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] top] localID]);
-            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1)
+            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1) {
                 [self.opManager.unconfirmedOp poptop];
+                if (self.opManager.unconfirmedOp.size == 0)
+                    self.textEditor.text = self.opManager.confirmedText;
+            }
             else {
                 for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
                     Operation *tempOp = [[Operation alloc] init];
                     tempOp = [self.opManager.unconfirmedOp.getDequeObj objectAtIndex:i];
+                    NSLog(@"Previous op: %d, %d, %@", i, tempOp.range.location, tempOp.replacementString);
                     NSRange trange = tempOp.range;
-                    if (operation.range.location < [tempOp range].location) {
+                    if (operation.range.location <= [tempOp range].location) {
                         if ((int)[tempOp range].location + (int)operation.replacementString.length - (int)operation.range.length > 0) {
                             trange.location += (NSUInteger)operation.replacementString.length - (NSUInteger)operation.range.length;
                         }
@@ -313,7 +341,7 @@ static bool hold = false;
                     }
                     
                     temptext = [temptext stringByReplacingCharactersInRange:[tempOp range] withString:tempOp.replacementString];
-                    NSLog(@"Unconfirm %d %@", i, temptext);
+                    NSLog(@"Unconfirm %d %@, %d, %@", i, temptext, tempOp.range.location, tempOp.replacementString);
                 
                 }
                 self.textEditor.text = temptext;
