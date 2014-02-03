@@ -11,4 +11,7 @@
 -(BOOL)isEmpty;
 -(NSMutableArray*) getDequeObj;
 -(void) clear;
+-(id)getObjAtIndex:(int)index;
+-(void)removeObjAtIndex:(int)index;
+
 @end

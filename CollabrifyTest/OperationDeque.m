@@ -64,5 +64,12 @@
     return result;
 }
 
+-(id)getObjAtIndex:(int)index {
+    return [deque objectAtIndex:index];
+}
+
+-(void)removeObjAtIndex:(int)index {
+    [deque removeObjectAtIndex:index];
+}
 
 @end

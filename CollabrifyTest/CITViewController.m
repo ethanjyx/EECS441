@@ -52,7 +52,14 @@ static bool hold = false;
         Operation* op = [[[OperationManager getOperationManager] unconfirmedOp]popbot];
         [self undoOperation:op];
     } else {
-        
+        for (int i = [[[OperationManager getOperationManager] confirmedOp] size] - 1; i >= 0; i--) {
+            Operation* op = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:i];
+            if (op.participantID == self.client.participantID) {
+                [[[OperationManager getOperationManager] confirmedOp] removeObjAtIndex:i];
+                [self undoOperation:op];
+                break;
+            }
+        }
     }
 }
 
@@ -60,9 +67,30 @@ static bool hold = false;
     NSRange undorange;
     undorange.location = op.range.location;
     undorange.length = op.replacementString.length;
-    self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:op.originalString];
+    
+    Operation* undo_op = [[Operation alloc] initLocal];;
+    [undo_op setRange:undorange];
+    [undo_op setOriginalString:op.replacementString];
+    [undo_op setReplacementString:op.originalString];
+    
+    NSLog(@"text leng: %d", self.textEditor.text.length);
+    NSLog(@"range location: %d", undorange.location);
+    NSLog(@"range length: %d", undorange.length);
+    
+    //self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
+    
+    if (self.textEditor.text.length >= undorange.location + undorange.length)
+        self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
+    else {
+        undorange.length = self.textEditor.text.length - undorange.location;
+        self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
+        self.textEditor.text = [self.textEditor.text stringByAppendingString:[undo_op.replacementString substringFromIndex:undorange.length]];
+    }
+    
+    
     [[[OperationManager getOperationManager] redoStack] push_back:op];
-    /* TODO: send this */
+    //[[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
+    [self broadcastOperation:undo_op];
 }
 
 - (IBAction)redo:(UIButton *)sender {
@@ -76,7 +104,7 @@ static bool hold = false;
 - (void) redoOperation: (Operation* ) op {
     self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:op.range withString:op.replacementString];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
-    /* TODO: send */
+    [self broadcastOperation:op];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -89,6 +117,10 @@ static bool hold = false;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if (range.length == 0 && text.length == 0) {
+        return YES;
+    }
+    
     /* init */
     Operation *op = [[Operation alloc] initLocal];
     
