@@ -87,6 +87,11 @@ static bool hold = false;
         self.textEditor.text = [self.textEditor.text stringByAppendingString:[undo_op.replacementString substringFromIndex:undorange.length]];
     }
     
+    [undo_op setParticipantID:self.client.participantID];
+    if (self.opManager.confirmedOp.size > 0)
+        [undo_op setCursormove:[self.opManager.confirmedOp.bottom globalID]];
+    else
+        [undo_op setCursormove:-1];
     
     [[[OperationManager getOperationManager] redoStack] push_back:op];
     //[[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
@@ -103,6 +108,10 @@ static bool hold = false;
 
 - (void) redoOperation: (Operation* ) op {
     self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:op.range withString:op.replacementString];
+    if (self.opManager.confirmedOp.size > 0)
+        [op setCursormove:[self.opManager.confirmedOp.bottom globalID]];
+    else
+        [op setCursormove:-1];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [self broadcastOperation:op];
 }
