@@ -89,9 +89,9 @@ static bool hold = false;
     
     [undo_op setParticipantID:self.client.participantID];
     if (self.opManager.confirmedOp.size > 0)
-        [undo_op setCursormove:[self.opManager.confirmedOp.bottom globalID]];
+        [undo_op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
-        [undo_op setCursormove:-1];
+        [undo_op setConfirmedGID:-1];
     
     [[[OperationManager getOperationManager] redoStack] push_back:op];
     //[[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
@@ -109,9 +109,9 @@ static bool hold = false;
 - (void) redoOperation: (Operation* ) op {
     self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:op.range withString:op.replacementString];
     if (self.opManager.confirmedOp.size > 0)
-        [op setCursormove:[self.opManager.confirmedOp.bottom globalID]];
+        [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
-        [op setCursormove:-1];
+        [op setConfirmedGID:-1];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [self broadcastOperation:op];
 }
@@ -139,9 +139,9 @@ static bool hold = false;
     [op setReplacementString: text];
     [op setRange:range];
     if (self.opManager.confirmedOp.size > 0)
-        [op setCursormove:[self.opManager.confirmedOp.bottom globalID]];
+        [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
-        [op setCursormove:-1];
+        [op setConfirmedGID:-1];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [[[OperationManager getOperationManager] redoStack] clear];
     [self broadcastOperation:op];
@@ -289,7 +289,7 @@ static bool hold = false;
                 self.map[@(operation.participantID)] = 0;
             }
             */
-            NSLog(@"replace range:%u,%u with %@. ConfirmID: %d, GlobalID: %d",operation.range.location, operation.range.length,operation.replacementString, operation.cursormove, operation.globalID);
+            NSLog(@"replace range:%u,%u with %@. ConfirmID: %d, GlobalID: %d",operation.range.location, operation.range.length,operation.replacementString, operation.confirmedGID, operation.globalID);
             //Boolean delete = false;
             //if (operation.range.length > operation.replacementString.length)
             //    delete = true;
@@ -309,7 +309,7 @@ static bool hold = false;
             
             NSLog(@"Before: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
       
-            for (int i = operation.cursormove + 1; i < self.opManager.confirmedOp.size; i++) {
+            for (int i = operation.confirmedGID + 1; i < self.opManager.confirmedOp.size; i++) {
                 Operation *tempOp = [[Operation alloc] init];
                 tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
                 if (tempOp.participantID != operation.participantID && tempOp.range.location < newRange.location) {

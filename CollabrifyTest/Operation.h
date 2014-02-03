@@ -17,7 +17,8 @@
 @property NSString *originalString;
 @property NSString *replacementString;
 @property NSRange range;
-@property int cursormove;
+@property int confirmedGID;
+@property BOOL isUndo;
 
 // Initializer for local operations, which will assign localID to the operation
 - (Operation *) initLocal;

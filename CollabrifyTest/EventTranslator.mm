@@ -25,7 +25,8 @@
     range->set_length(operation.range.length);
     range->set_location(operation.range.location);
     message.set_allocated_range(range);
-    message.set_cursormove(operation.cursormove);
+    message.set_confirmed_gid(operation.confirmedGID);
+    message.set_is_undo(operation.isUndo);
     
     // Serialize as NSData
     std::string serilized_str = message.SerializeAsString();
@@ -54,7 +55,8 @@
     range.length = (long)message.range().length();
     range.location = (unsigned int)message.range().location();
     operation.range = range;
-    operation.cursormove = message.cursormove();
+    operation.confirmedGID = message.confirmed_gid();
+    operation.isUndo = message.is_undo();
     
     return operation;
 }
