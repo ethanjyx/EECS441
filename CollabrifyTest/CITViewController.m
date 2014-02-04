@@ -286,6 +286,7 @@ static bool hold = false;
         NSLog(@"Passed empty array into method getRedoOperation!!");
         return nil;
     }
+    NSLog(@"In getUndoOperation");
     Operation* op = [[Operation alloc] init];
     NSNumber *index = indexArr[[indexArr count] - 1];
     op = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[index intValue]];
@@ -322,7 +323,7 @@ static bool hold = false;
             [self.opManager.confirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
         }
     }
-   */ 
+   */
     return op;
 }
 
