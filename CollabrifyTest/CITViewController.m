@@ -402,7 +402,7 @@ static bool hold = false;
             NSLog(@"bottom localID: %d:%d, submissionID: %d", operation.localID, [[[self.opManager unconfirmedOp] top] localID], operation.submissionID);
             if (self.client.participantID == operation.participantID && operation.submissionID == -1)
                 NSLog(@"Collabrify has bug!!!!");
-            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1) {
+            if (operation.localID == [self.opManager.unconfirmedOp.top localID] && self.client.participantID == operation.participantID) {
                 [self.opManager.unconfirmedOp poptop];
                 if (self.opManager.unconfirmedOp.size == 0)
                     self.textEditor.text = self.opManager.confirmedText;
