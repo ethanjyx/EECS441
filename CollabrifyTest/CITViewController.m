@@ -293,9 +293,36 @@ static bool hold = false;
         [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
         [op setConfirmedGID:-1];
+    NSRange newRange = op.range;
     for (int i = (int)self.opManager.confirmedOp.size - 2; i >= 0; i--) {
-    
+        Operation *tempOp = [[Operation alloc] init];
+        tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[indexArr[i] intValue]];
+        if (tempOp.participantID != op.participantID && tempOp.range.location < newRange.location) {
+            if ((int)newRange.location - (int)tempOp.replacementString.length + (int)tempOp.range.length >= 0) {
+                newRange.location -= tempOp.replacementString.length - tempOp.range.length;
+            } else
+                newRange.location = 0;
+            NSLog(@"newRange for redo: %d", newRange.location);
+        }
     }
+    op.range = newRange;
+ /*
+    for (int i = (int)self.opManager.confirmedOp.size - 2; i >= 0; i--) {
+        Operation *tempOp = [[Operation alloc] init];
+        tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
+        NSLog(@"Previous op: %d, %d, %@", i, tempOp.range.location, tempOp.replacementString);
+        NSRange trange = tempOp.range;
+        if (op.range.location <= [tempOp range].location) {
+            if ((int)[tempOp range].location + (int)op.replacementString.length - (int)op.range.length > 0) {
+                trange.location += (NSUInteger)op.replacementString.length - (NSUInteger)op.range.length;
+            }
+            else
+                trange.location = 0;
+            tempOp.range = trange;
+            [self.opManager.confirmedOp.getDequeObj replaceObjectAtIndex:i withObject:tempOp];
+        }
+    }
+   */ 
     return op;
 }
 
