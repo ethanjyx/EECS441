@@ -378,6 +378,8 @@ static bool hold = false;
             
             NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
             NSLog(@"bottom localID: %d:%d, submissionID: %d", operation.localID, [[[self.opManager unconfirmedOp] top] localID], operation.submissionID);
+            if (self.client.participantID == operation.participantID && operation.submissionID == -1)
+                NSLog(@"Collabrify has bug!!!!");
             if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1) {
                 [self.opManager.unconfirmedOp poptop];
                 if (self.opManager.unconfirmedOp.size == 0)
