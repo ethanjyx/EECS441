@@ -279,6 +279,21 @@ static bool hold = false;
     [self handleReceivedOperation:operation];
 }
 
+- (Operation*) getRedoOperation:(NSMutableArray*) indexArr{
+    if ([indexArr count] == 0) {
+        NSLog(@"Passed empty array into method getRedoOperation!!");
+        return nil;
+    }
+    Operation* op = [[Operation alloc] init];
+    NSNumber *index = indexArr[[indexArr count] - 1];
+    op = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[index intValue]];
+    if (self.opManager.confirmedOp.size > 0)
+        [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
+    else
+        [op setConfirmedGID:-1];
+    return op;
+}
+
 - (void)handleReceivedOperation:(Operation *)operation
 {
     
@@ -355,7 +370,7 @@ static bool hold = false;
                 self.textEditor.text = temptext;
                 if (operation.range.location < tempRange.location) {
                     if ((int)tempRange.location + (int)operation.replacementString.length - (int)operation.range.length >= 0) {
-                        tempRange.location +=operation.replacementString.length - operation.range.length;
+                        tempRange.location += operation.replacementString.length - operation.range.length;
                     } else
                         tempRange.location = 0;
                 }
@@ -363,7 +378,9 @@ static bool hold = false;
             
             //[self.opManager setConfirmedText:[[self textEditor] text]];
             [[self.opManager confirmedOp] push_back:operation];
-            
+            if (!operation.isUndo) {
+                    [[self.opManager undoStack] push_back:[NSNumber numberWithInt:operation.globalID]];
+            }
             
             // set the cursor location back.
             self.textEditor.selectedRange = tempRange;
