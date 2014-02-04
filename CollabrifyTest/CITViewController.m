@@ -280,7 +280,7 @@ static bool hold = false;
     [self handleReceivedOperation:operation];
 }
 
-- (Operation*) getRedoOperation:(NSMutableArray*) indexArr{
+- (Operation*) getUndoOperation:(NSMutableArray*) indexArr{
     if ([indexArr count] == 0) {
         NSLog(@"Passed empty array into method getRedoOperation!!");
         return nil;
