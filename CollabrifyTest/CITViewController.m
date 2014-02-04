@@ -72,9 +72,9 @@ static bool hold = false;
     [undo_op setOriginalString:op.replacementString];
     [undo_op setReplacementString:op.originalString];
     
-    // NSLog(@"text leng: %d", self.textEditor.text.length);
-    // NSLog(@"range location: %d", undorange.location);
-    // NSLog(@"range length: %d", undorange.length);
+    NSLog(@"View text: %@", self.textEditor.text);
+    NSLog(@"range location: %d", undorange.location);
+    NSLog(@"range length: %d", undorange.length);
     
     // self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
     
@@ -93,8 +93,8 @@ static bool hold = false;
     else
         [undo_op setConfirmedGID:-1];
     
+    [[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
     [[[OperationManager getOperationManager] redoStack] push_back:op];
-    //[[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
     [self broadcastOperation:undo_op];
 }
 
