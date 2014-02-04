@@ -413,6 +413,13 @@ static bool hold = false;
             [[self.opManager confirmedOp] push_back:operation];
             if (!operation.isUndo) {
                     [[self.opManager undoStack] push_back:[NSNumber numberWithInt:operation.globalID]];
+            } else {
+                for (int i = [[self.opManager undoStack] size] - 1; i >=0; i--) {
+                    if ([[[[self.opManager undoStack] getDequeObj] objectAtIndex:i] participantID] == operation.participantID) {
+                        [[self.opManager undoStack] removeObjAtIndex:i];
+                        break;
+                    }
+                }
             }
             
             // set the cursor location back.
