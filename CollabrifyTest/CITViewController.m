@@ -414,11 +414,15 @@ static bool hold = false;
             if (!operation.isUndo) {
                     [[self.opManager undoStack] push_back:[NSNumber numberWithInt:operation.globalID]];
             } else {
-                for (int i = [[self.opManager undoStack] size] - 1; i >=0; i--) {
-                    if ([[[[self.opManager undoStack] getDequeObj] objectAtIndex:i] participantID] == operation.participantID) {
-                        [[self.opManager undoStack] removeObjAtIndex:i];
-                        break;
+                if (operation.submissionID != -1 ) {
+                    NSLog(@"Operation for UNdo start");
+                    for (int i = [[self.opManager undoStack] size] - 1; i >=0; i--) {
+                        if ([[[[self.opManager undoStack] getDequeObj] objectAtIndex:i] participantID] == operation.participantID) {
+                            [[self.opManager undoStack] removeObjAtIndex:i];
+                            break;
+                        }
                     }
+                    NSLog(@"Operation for UNdo end");
                 }
             }
             
