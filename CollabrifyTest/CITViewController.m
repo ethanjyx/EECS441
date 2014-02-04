@@ -88,10 +88,13 @@ static bool hold = false;
     
     [undo_op setParticipantID:self.client.participantID];
     [undo_op setIsUndo:true];
-    if (self.opManager.confirmedOp.size > 0)
+    if (self.opManager.confirmedOp.size > 0) {
         [undo_op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
-    else
+        [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
+    } else {
         [undo_op setConfirmedGID:-1];
+        [op setConfirmedGID:-1];
+    }
     
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
     [[[OperationManager getOperationManager] redoStack] push_back:op];
