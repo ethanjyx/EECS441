@@ -52,7 +52,7 @@ static bool hold = false;
     for (int i = (int)[[[OperationManager getOperationManager] undoStack] size] - 1; i >= 0; i--) {
         NSNumber* global_id = [[[OperationManager getOperationManager] undoStack] getObjAtIndex:i];
         [undoArray addObject:global_id];
-        Operation* op = [[[OperationManager getOperationManager] undoStack] getObjAtIndex:[global_id intValue]];
+        Operation* op = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:[global_id intValue]];
         if (op.participantID == self.client.participantID) {
             [[[OperationManager getOperationManager] undoStack] removeObjAtIndex:i];
             Operation* undo_op = [self getUndoOperation:undoArray];
