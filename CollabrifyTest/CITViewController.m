@@ -295,7 +295,7 @@ static bool hold = false;
     else
         [op setConfirmedGID:-1];
     NSRange newRange = op.range;
-    for (int i = (int)self.opManager.confirmedOp.size - 2; i >= 0; i--) {
+    for (int i = (int)indexArr.count - 2; i >= 0; i--) {
         Operation *tempOp = [[Operation alloc] init];
         tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[indexArr[i] intValue]];
         if (tempOp.participantID != op.participantID && tempOp.range.location < newRange.location) {
