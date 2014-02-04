@@ -106,6 +106,7 @@ static bool hold = false;
     if([[[OperationManager getOperationManager] redoStack] isEmpty])
         return;
     Operation* op = [[[OperationManager getOperationManager] redoStack] popbot];
+    op = [self getRedoOperation:op];
     [self redoOperation:op];
 }
 
@@ -282,6 +283,23 @@ static bool hold = false;
     operation.globalID = orderID;
     operation.submissionID = submissionRegistrationID;
     [self handleReceivedOperation:operation];
+}
+
+- (Operation*) getRedoOperation:(Operation*) operation{
+    NSRange newRange = operation.range;
+    for (int i = operation.confirmedGID + 1; i < self.opManager.confirmedOp.size; i++) {
+        Operation *tempOp = [[Operation alloc] init];
+        tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
+        if (tempOp.participantID != operation.participantID && tempOp.range.location < newRange.location) {
+            if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
+                newRange.location +=tempOp.replacementString.length - tempOp.range.length;
+            } else
+                newRange.location = 0;
+            NSLog(@"newRange: %d", newRange.location);
+        }
+    }
+    operation.range = newRange;
+    return operation;
 }
 
 - (Operation*) getUndoOperation:(NSMutableArray*) indexArr{
