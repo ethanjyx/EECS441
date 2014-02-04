@@ -293,6 +293,9 @@ static bool hold = false;
         [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
         [op setConfirmedGID:-1];
+    for (int i = (int)self.opManager.confirmedOp.size - 2; i >= 0; i--) {
+    
+    }
     return op;
 }
 
@@ -343,7 +346,7 @@ static bool hold = false;
             
             
             NSLog(@"After: temptext %@ confirmedText %@", temptext, self.opManager.confirmedText);
-            NSLog(@"bottom localID: %d", [[[self.opManager unconfirmedOp] top] localID]);
+            NSLog(@"bottom localID: %d:%d, submissionID: %d", operation.localID, [[[self.opManager unconfirmedOp] top] localID], operation.submissionID);
             if (operation.localID == [self.opManager.unconfirmedOp.top localID] && operation.submissionID != -1) {
                 [self.opManager.unconfirmedOp poptop];
                 if (self.opManager.unconfirmedOp.size == 0)
