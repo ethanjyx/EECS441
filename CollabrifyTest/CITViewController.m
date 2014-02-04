@@ -47,18 +47,16 @@ static bool hold = false;
 
 - (IBAction)undo:(UIButton *)sender {
     NSLog(@"Undo");
-    /* confirmed stack is not empty */
-    if(![[[OperationManager getOperationManager] unconfirmedOp] isEmpty]) {
-        Operation* op = [[[OperationManager getOperationManager] unconfirmedOp]popbot];
-        [self undoOperation:op];
-    } else {
-        for (int i = [[[OperationManager getOperationManager] confirmedOp] size] - 1; i >= 0; i--) {
-            Operation* op = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:i];
-            if (op.participantID == self.client.participantID) {
-                [[[OperationManager getOperationManager] confirmedOp] removeObjAtIndex:i];
-                [self undoOperation:op];
-                break;
-            }
+    
+    NSMutableArray* undoArray = [[NSMutableArray alloc] init];
+    for (int i = (int)[[[OperationManager getOperationManager] undoStack] size] - 1; i >= 0; i--) {
+        NSNumber* global_id = [[[OperationManager getOperationManager] undoStack] getObjAtIndex:i];
+        [undoArray addObject:global_id];
+        Operation* op = [[[OperationManager getOperationManager] undoStack] getObjAtIndex:[global_id intValue]];
+        if (op.participantID == self.client.participantID) {
+            [[[OperationManager getOperationManager] undoStack] removeObjAtIndex:i];
+            [self undoOperation:op];
+            break;
         }
     }
 }
@@ -73,11 +71,11 @@ static bool hold = false;
     [undo_op setOriginalString:op.replacementString];
     [undo_op setReplacementString:op.originalString];
     
-    NSLog(@"text leng: %d", self.textEditor.text.length);
-    NSLog(@"range location: %d", undorange.location);
-    NSLog(@"range length: %d", undorange.length);
+    // NSLog(@"text leng: %d", self.textEditor.text.length);
+    // NSLog(@"range location: %d", undorange.location);
+    // NSLog(@"range length: %d", undorange.length);
     
-    //self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
+    // self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
     
     if (self.textEditor.text.length >= undorange.location + undorange.length)
         self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
@@ -138,6 +136,7 @@ static bool hold = false;
     [op setOriginalString:[textView.text substringWithRange:range]];
     [op setReplacementString: text];
     [op setRange:range];
+    [op setIsUndo:false];
     if (self.opManager.confirmedOp.size > 0)
         [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
