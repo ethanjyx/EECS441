@@ -42,7 +42,7 @@ static OperationManager* manager;
     }
     return _unconfirmedOp;
 }
-
+/*
 - (Deque*) undoStack;
 {
     if (_undoStack == nil) {
@@ -50,7 +50,7 @@ static OperationManager* manager;
     }
     return _undoStack;
 }
-
+*/
 - (Deque*) redoStack;
 {
     if (_redoStack == nil) {

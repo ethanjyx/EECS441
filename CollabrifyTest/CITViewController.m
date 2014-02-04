@@ -48,16 +48,24 @@ static bool hold = false;
 - (IBAction)undo:(UIButton *)sender {
     NSLog(@"Undo");
     
-    NSMutableArray* undoArray = [[NSMutableArray alloc] init];
-    for (int i = (int)[[[OperationManager getOperationManager] undoStack] size] - 1; i >= 0; i--) {
-        NSNumber* global_id = [[[OperationManager getOperationManager] undoStack] getObjAtIndex:i];
-        [undoArray addObject:global_id];
-        Operation* op = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:[global_id intValue]];
+    //NSMutableArray* undoArray = [[NSMutableArray alloc] init];
+    int count = 0;
+    for (int i = (int)[[[OperationManager getOperationManager] confirmedOp] size] - 1; i >= 0; i--) {
+        //NSNumber* global_id = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:i];
+        //[undoArray addObject:global_id];
+        Operation* op = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:i];
         if (op.participantID == self.client.participantID) {
-            [[[OperationManager getOperationManager] undoStack] removeObjAtIndex:i];
-            Operation* undo_op = [self getUndoOperation:undoArray];
-            [self undoOperation:undo_op];
-            break;
+            if (op.isUndo) {
+                count--;
+                continue;
+            } else
+                count++;
+            //[[[OperationManager getOperationManager] confirmedOp] removeObjAtIndex:i];
+            if (count == 1) {
+                Operation* undo_op = [self getUndoOperation:op];
+                [self undoOperation:undo_op];
+                break;
+            }
         }
     }
 }
@@ -302,29 +310,25 @@ static bool hold = false;
     return operation;
 }
 
-- (Operation*) getUndoOperation:(NSMutableArray*) indexArr{
-    if ([indexArr count] == 0) {
-        NSLog(@"Passed empty array into method getRedoOperation!!");
-        return nil;
-    }
+- (Operation*) getUndoOperation:(Operation*) operation{
     NSLog(@"In getUndoOperation");
-    Operation* op = [[Operation alloc] init];
-    NSNumber *index = indexArr[[indexArr count] - 1];
-    op = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[index intValue]];
+    Operation* op = operation;
+    //NSNumber *index = indexArr[[indexArr count] - 1];
+    //op = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[index intValue]];
     if (self.opManager.confirmedOp.size > 0)
         [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
         [op setConfirmedGID:-1];
     NSRange newRange = op.range;
-    for (int i = (int)indexArr.count - 2; i >= 0; i--) {
+    for (int i = operation.globalID + 1; i < (int)[self.opManager.confirmedOp size]; i++) {
         Operation *tempOp = [[Operation alloc] init];
-        tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[indexArr[i] intValue]];
+        tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
         if (tempOp.participantID != op.participantID && tempOp.range.location < newRange.location) {
             if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
                 newRange.location += tempOp.replacementString.length - tempOp.range.length;
             } else
                 newRange.location = 0;
-            NSLog(@"newRange for redo: %d", newRange.location);
+            NSLog(@"newRange for undo operation: %d", newRange.location);
         }
     }
     op.range = newRange;
@@ -434,6 +438,7 @@ static bool hold = false;
             
             //[self.opManager setConfirmedText:[[self textEditor] text]];
             [[self.opManager confirmedOp] push_back:operation];
+            /*
             if (!operation.isUndo) {
                     [[self.opManager undoStack] push_back:[NSNumber numberWithInt:operation.globalID]];
             } else {
@@ -448,7 +453,7 @@ static bool hold = false;
                     NSLog(@"Operation for UNdo end");
                 }
             }
-            
+            */
             // set the cursor location back.
             self.textEditor.selectedRange = tempRange;
             /*  ***
@@ -570,7 +575,7 @@ static bool hold = false;
     
     //clear opManager and textEditor
     self.textEditor.text = @"";
-    [self.opManager.undoStack clear];
+  //  [self.opManager.undoStack clear];
     [self.opManager.redoStack clear];
     [self.opManager.confirmedOp clear];
     [self.opManager.unconfirmedOp clear];
@@ -597,7 +602,7 @@ static bool hold = false;
     
     //clear opManager and textEditor
     self.textEditor.text = @"";
-    [self.opManager.undoStack clear];
+//    [self.opManager.undoStack clear];
     [self.opManager.redoStack clear];
     [self.opManager.confirmedOp clear];
     [self.opManager.unconfirmedOp clear];
