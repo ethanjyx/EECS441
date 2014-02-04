@@ -299,8 +299,8 @@ static bool hold = false;
         Operation *tempOp = [[Operation alloc] init];
         tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[indexArr[i] intValue]];
         if (tempOp.participantID != op.participantID && tempOp.range.location < newRange.location) {
-            if ((int)newRange.location - (int)tempOp.replacementString.length + (int)tempOp.range.length >= 0) {
-                newRange.location -= tempOp.replacementString.length - tempOp.range.length;
+            if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
+                newRange.location += tempOp.replacementString.length - tempOp.range.length;
             } else
                 newRange.location = 0;
             NSLog(@"newRange for redo: %d", newRange.location);
