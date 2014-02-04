@@ -55,6 +55,7 @@ static bool hold = false;
         Operation* op = [[[OperationManager getOperationManager] undoStack] getObjAtIndex:[global_id intValue]];
         if (op.participantID == self.client.participantID) {
             [[[OperationManager getOperationManager] undoStack] removeObjAtIndex:i];
+            Operation* undo_op = [self getUndoOperation:undoArray];
             [self undoOperation:op];
             break;
         }
