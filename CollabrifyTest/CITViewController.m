@@ -416,7 +416,7 @@ static bool hold = false;
             } else {
                 if (operation.submissionID == -1 ) {
                     NSLog(@"Operation for UNdo start");
-                    for (int i = [[self.opManager undoStack] size] - 1; i >=0; i--) {
+                    for (int i = (int)[[self.opManager undoStack] size] - 1; i >=0; i--) {
                         if ([[[[self.opManager undoStack] getDequeObj] objectAtIndex:i] participantID] == operation.participantID) {
                             [[self.opManager undoStack] removeObjAtIndex:i];
                             break;
