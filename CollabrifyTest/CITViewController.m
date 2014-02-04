@@ -568,6 +568,14 @@ static bool hold = false;
 {
     NSLog(@"Session selected");
     
+    //clear opManager and textEditor
+    self.textEditor.text = @"";
+    [self.opManager.undoStack clear];
+    [self.opManager.redoStack clear];
+    [self.opManager.confirmedOp clear];
+    [self.opManager.unconfirmedOp clear];
+    self.opManager.confirmedText = @"";
+    
     [[self navigationController] popViewControllerAnimated:YES];
     
     [[self client] joinSessionWithID:[session sessionID] password:@"password" startPaused:NO completionHandler:^(int64_t maxOrderID, int32_t baseFileSize, CollabrifyError *error) {
@@ -586,6 +594,14 @@ static bool hold = false;
     NSString *sessionName = [NSString stringWithFormat:@"%li Test", (long)randomNumber];
     
     NSLog(@"Session Name = %@", sessionName);
+    
+    //clear opManager and textEditor
+    self.textEditor.text = @"";
+    [self.opManager.undoStack clear];
+    [self.opManager.redoStack clear];
+    [self.opManager.confirmedOp clear];
+    [self.opManager.unconfirmedOp clear];
+    self.opManager.confirmedText = @"";
     
     [[self client] createSessionWithName:sessionName password:@"password" tags:[self tags] startPaused:NO completionHandler:^(int64_t sessionID, CollabrifyError *error) {
         if (!error)
@@ -636,6 +652,7 @@ static bool hold = false;
         {
             NSLog(@"Error leaving = %@", error);
         }
+
     }];
 }
 
