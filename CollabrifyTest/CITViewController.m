@@ -56,7 +56,7 @@ static bool hold = false;
         if (op.participantID == self.client.participantID) {
             [[[OperationManager getOperationManager] undoStack] removeObjAtIndex:i];
             Operation* undo_op = [self getUndoOperation:undoArray];
-            [self undoOperation:op];
+            [self undoOperation:undo_op];
             break;
         }
     }
@@ -87,6 +87,7 @@ static bool hold = false;
     }
     
     [undo_op setParticipantID:self.client.participantID];
+    [undo_op setIsUndo:true];
     if (self.opManager.confirmedOp.size > 0)
         [undo_op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
