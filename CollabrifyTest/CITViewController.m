@@ -36,8 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *undoButton;
 @property (assign) BOOL hold;
 //@property (strong, nonatomic) NSMutableDictionary *map;
-@property (assign) int cursor;
-@property (assign) int hiscursor;
+@property (assign) int countUnconfirmedUndo;
 
 @end
 
@@ -49,7 +48,7 @@ static bool hold = false;
     NSLog(@"Undo");
     
     //NSMutableArray* undoArray = [[NSMutableArray alloc] init];
-    int count = 0;
+    int count = -self.countUnconfirmedUndo;
     for (int i = (int)[[[OperationManager getOperationManager] confirmedOp] size] - 1; i >= 0; i--) {
         //NSNumber* global_id = [[[OperationManager getOperationManager] confirmedOp] getObjAtIndex:i];
         //[undoArray addObject:global_id];
@@ -79,6 +78,16 @@ static bool hold = false;
     [undo_op setRange:undorange];
     [undo_op setOriginalString:op.replacementString];
     [undo_op setReplacementString:op.originalString];
+    [undo_op setParticipantID:self.client.participantID];
+    [undo_op setIsUndo:true];
+    
+    Operation* redo_op = [[Operation alloc] initLocal];;
+    [redo_op setRange:op.range];
+    [redo_op setOriginalString:op.originalString];
+    [redo_op setReplacementString:op.replacementString];
+    [redo_op setParticipantID:self.client.participantID];
+    [redo_op setIsUndo:false];
+    
     
     NSLog(@"View text: %@", self.textEditor.text);
     NSLog(@"range location: %d", undorange.location);
@@ -89,23 +98,24 @@ static bool hold = false;
     if (self.textEditor.text.length >= undorange.location + undorange.length)
         self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
     else {
+        NSLog(@"In undoOperation: Should not be here!");
         undorange.length = self.textEditor.text.length - undorange.location;
         self.textEditor.text = [self.textEditor.text stringByReplacingCharactersInRange:undorange withString:undo_op.replacementString];
         self.textEditor.text = [self.textEditor.text stringByAppendingString:[undo_op.replacementString substringFromIndex:undorange.length]];
     }
     
-    [undo_op setParticipantID:self.client.participantID];
-    [undo_op setIsUndo:true];
+    
     if (self.opManager.confirmedOp.size > 0) {
         [undo_op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
-        [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
+        [redo_op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     } else {
         [undo_op setConfirmedGID:-1];
-        [op setConfirmedGID:-1];
+        [redo_op setConfirmedGID:-1];
     }
     
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:undo_op];
-    [[[OperationManager getOperationManager] redoStack] push_back:op];
+    [[[OperationManager getOperationManager] redoStack] push_back:redo_op];
+    self.countUnconfirmedUndo++;
     [self broadcastOperation:undo_op];
 }
 
@@ -114,7 +124,9 @@ static bool hold = false;
     if([[[OperationManager getOperationManager] redoStack] isEmpty])
         return;
     Operation* op = [[[OperationManager getOperationManager] redoStack] popbot];
+    NSLog(@"previous redo op: %d, %d, %@ with locID: %d", op.range.location, op.range.length, op.replacementString, op.localID);
     op = [self getRedoOperation:op];
+    NSLog(@"after redo op: %d, %d, %@ with locID: %d", op.range.location, op.range.length, op.replacementString, op.localID);
     [self redoOperation:op];
 }
 
@@ -313,8 +325,16 @@ static bool hold = false;
 
 - (Operation*) getUndoOperation:(Operation*) operation{
     NSLog(@"In getUndoOperation");
-    Operation* op = operation;
-    NSLog(@"previous op: %d, %d, %@", operation.range.location, operation.range.length, operation.replacementString);
+    Operation* op = [[Operation alloc] initLocal];
+    //op = [operation copy];
+    
+    op.range = operation.range;
+    op.participantID = operation.participantID;
+    op.isUndo = operation.isUndo;
+    op.replacementString = operation.replacementString;
+    op.originalString = operation.originalString;
+    
+    NSLog(@"previous op: %d, %d, %@ with locID: %d", operation.range.location, operation.range.length, operation.replacementString, operation.localID);
     //NSNumber *index = indexArr[[indexArr count] - 1];
     //op = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[index intValue]];
     if (self.opManager.confirmedOp.size > 0)
@@ -409,6 +429,8 @@ static bool hold = false;
                 [self.opManager.unconfirmedOp poptop];
                 if (self.opManager.unconfirmedOp.size == 0)
                     self.textEditor.text = self.opManager.confirmedText;
+                if (operation.isUndo)
+                    self.countUnconfirmedUndo--;
             }
             else {
                 for (int i = 0; i < self.opManager.unconfirmedOp.size; i++) {
@@ -765,8 +787,7 @@ static bool hold = false;
     [[self textEditor] setDelegate: (id<UITextViewDelegate>)self];
     self.opManager = [OperationManager getOperationManager];
     self.hold = false;
-    self.cursor = 0;
-    self.hiscursor = 0;
+    self.countUnconfirmedUndo = 0;
     //self.map = [[NSMutableDictionary alloc] init];
     //[self.map setObject:[NSNumber numberWithFloat:1.23f]
      //                  forKey:[NSNumber numberWithInt:1]];
