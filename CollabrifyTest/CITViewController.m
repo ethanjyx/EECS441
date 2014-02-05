@@ -124,6 +124,7 @@ static bool hold = false;
         [op setConfirmedGID:[self.opManager.confirmedOp.bottom globalID]];
     else
         [op setConfirmedGID:-1];
+    [op setParticipantID:self.client.participantID];
     [[[OperationManager getOperationManager] unconfirmedOp] push_back:op];
     [self broadcastOperation:op];
 }
