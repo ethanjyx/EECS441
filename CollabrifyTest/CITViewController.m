@@ -314,6 +314,7 @@ static bool hold = false;
 - (Operation*) getUndoOperation:(Operation*) operation{
     NSLog(@"In getUndoOperation");
     Operation* op = operation;
+    NSLog(@"previous op: %d, %d, %@", operation.range.location, operation.range.length, operation.replacementString);
     //NSNumber *index = indexArr[[indexArr count] - 1];
     //op = [self.opManager.confirmedOp.getDequeObj objectAtIndex:[index intValue]];
     if (self.opManager.confirmedOp.size > 0)
@@ -325,6 +326,7 @@ static bool hold = false;
         Operation *tempOp = [[Operation alloc] init];
         tempOp = [self.opManager.confirmedOp.getDequeObj objectAtIndex:i];
         if (tempOp.participantID != op.participantID && tempOp.range.location < newRange.location) {
+            NSLog(@"id: %d, loc: %d", i, tempOp.range.location);
             if ((int)newRange.location + (int)tempOp.replacementString.length - (int)tempOp.range.length >= 0) {
                 newRange.location += tempOp.replacementString.length - tempOp.range.length;
             } else
